@@ -21,15 +21,11 @@ margin-bottom:10px;
 font-size:14px;
 }
 
-/* POPUP CONTAINER */
-
 .hub-popup{
 width:100%;
 max-width:340px;
 font-family:Arial;
 }
-
-/* TITLE */
 
 .title{
 text-align:center;
@@ -38,34 +34,25 @@ padding-bottom:6px;
 margin-bottom:10px;
 }
 
-/* DATA BOX */
-
 .box{
 background:#d9d9d9;
 padding:8px;
 border-radius:6px;
 margin-bottom:6px;
 font-size:13px;
-
 word-wrap:break-word;
 overflow-wrap:break-word;
 }
 
-/* FULL WIDTH BOX */
-
 .full{
 width:100%;
 }
-
-/* GRID LAYOUT */
 
 .grid2{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
 gap:6px;
 }
-
-/* CONTACT SECTION */
 
 .section{
 background:#bfbfbf;
@@ -75,8 +62,6 @@ border-radius:6px;
 margin-bottom:8px;
 font-weight:bold;
 }
-
-/* DIRECTION BUTTON */
 
 .direction-btn{
 background:#2f7d57;
@@ -88,8 +73,6 @@ font-weight:bold;
 display:inline-block;
 margin-top:5px;
 }
-
-/* MOBILE OPTIMIZATION */
 
 @media (max-width:480px){
 
