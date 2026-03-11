@@ -94,8 +94,8 @@ Papa.parse(sheetURL,{
  `;
 
  marker.bindPopup(popup,{
- maxWidth:360,
- minWidth:360,
+ maxWidth:340,
+ minWidth:340,
  className:"custom-popup"
  });
 
