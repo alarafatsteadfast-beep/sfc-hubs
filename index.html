@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>SFC Hub Locator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css"/>
@@ -23,7 +24,7 @@
     <div class="header-time" id="liveDateTime">Loading time...</div>
 
     <div class="header-search">
-      <input id="searchBox" type="text" placeholder="Search Hub">
+      <input id="searchBox" type="text" placeholder="Search Hub" autocomplete="off">
       <span class="search-icon">⌕</span>
     </div>
   </div>
@@ -36,33 +37,29 @@
         <div class="tree-section">
           <button class="tree-toggle tree-box" type="button" data-target="divisionTree">
             <span>Divisions</span>
-            <span class="tree-arrow">⌄</span>
           </button>
-          <div id="divisionTree" class="tree-list"></div>
+          <div id="divisionTree" class="tree-list hidden"></div>
         </div>
 
         <div class="tree-section">
           <button class="tree-toggle tree-box" type="button" data-target="districtTree">
             <span>Districts</span>
-            <span class="tree-arrow">⌄</span>
           </button>
-          <div id="districtTree" class="tree-list"></div>
+          <div id="districtTree" class="tree-list hidden"></div>
         </div>
 
         <div class="tree-section">
           <button class="tree-toggle tree-box" type="button" data-target="zoneTree">
             <span>Zones</span>
-            <span class="tree-arrow">⌄</span>
           </button>
-          <div id="zoneTree" class="tree-list"></div>
+          <div id="zoneTree" class="tree-list hidden"></div>
         </div>
 
         <div class="tree-section">
-          <button class="tree-toggle tree-box active" type="button" data-target="hubTree">
+          <button class="tree-toggle tree-box" type="button" data-target="hubTree">
             <span>Hubs</span>
-            <span class="tree-arrow">⌄</span>
           </button>
-          <div id="hubTree" class="tree-list"></div>
+          <div id="hubTree" class="tree-list hidden"></div>
         </div>
       </div>
     </div>

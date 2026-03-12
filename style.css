@@ -1,3 +1,7 @@
+*{
+  box-sizing: border-box;
+}
+
 body{
   font-family: Arial, sans-serif;
   margin: 0;
@@ -34,6 +38,7 @@ body{
   font-weight: 700;
   color: #4a4a4a;
   line-height: 1;
+  user-select: none;
 }
 
 .brand-sub{
@@ -43,6 +48,7 @@ body{
   margin-left: 82px;
   margin-top: -4px;
   line-height: 1;
+  user-select: none;
 }
 
 .header-time{
@@ -85,6 +91,7 @@ body{
   font-size: 20px;
   color: #777;
   pointer-events: none;
+  user-select: none;
 }
 
 /* MAIN LAYOUT */
@@ -132,7 +139,7 @@ body{
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   text-align: left;
 }
 
@@ -153,16 +160,6 @@ body{
 .tree-box.active{
   background: #1fc17a;
   color: #ffffff;
-}
-
-.tree-arrow{
-  font-size: 14px;
-  line-height: 1;
-  transition: transform 0.2s ease;
-}
-
-.tree-toggle.collapsed .tree-arrow{
-  transform: rotate(-90deg);
 }
 
 .tree-list{

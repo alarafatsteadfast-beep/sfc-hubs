@@ -219,7 +219,6 @@ function initTreeToggles() {
       if (!target) return;
 
       target.classList.toggle("hidden");
-      this.classList.toggle("collapsed");
       this.classList.toggle("active");
     });
   });
