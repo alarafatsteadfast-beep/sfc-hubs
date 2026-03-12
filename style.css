@@ -173,9 +173,9 @@ body{
 .tree-item{
   display: block;
   margin: 0;
-  padding: 8px 12px 8px 22px;
+  padding: 4px 12px 4px 22px;
   font-size: 12px;
-  line-height: 1.4;
+  line-height: 1.2;
   color: #555;
   word-break: break-word;
 }
