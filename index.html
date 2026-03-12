@@ -34,23 +34,35 @@
 
       <div class="tree-wrap">
         <div class="tree-section">
-          <div class="tree-title">• <span>Hubs</span></div>
-          <div id="hubTree" class="tree-list"></div>
+          <button class="tree-toggle tree-box" type="button" data-target="divisionTree">
+            <span>Divisions</span>
+            <span class="tree-arrow">⌄</span>
+          </button>
+          <div id="divisionTree" class="tree-list"></div>
         </div>
 
         <div class="tree-section">
-          <div class="tree-title">• <span>Zones</span></div>
-          <div id="zoneTree" class="tree-list"></div>
-        </div>
-
-        <div class="tree-section">
-          <div class="tree-title">• <span>Districts</span></div>
+          <button class="tree-toggle tree-box" type="button" data-target="districtTree">
+            <span>Districts</span>
+            <span class="tree-arrow">⌄</span>
+          </button>
           <div id="districtTree" class="tree-list"></div>
         </div>
 
         <div class="tree-section">
-          <div class="tree-title">• <span>Divisions</span></div>
-          <div id="divisionTree" class="tree-list"></div>
+          <button class="tree-toggle tree-box" type="button" data-target="zoneTree">
+            <span>Zones</span>
+            <span class="tree-arrow">⌄</span>
+          </button>
+          <div id="zoneTree" class="tree-list"></div>
+        </div>
+
+        <div class="tree-section">
+          <button class="tree-toggle tree-box active" type="button" data-target="hubTree">
+            <span>Hubs</span>
+            <span class="tree-arrow">⌄</span>
+          </button>
+          <div id="hubTree" class="tree-list"></div>
         </div>
       </div>
     </div>

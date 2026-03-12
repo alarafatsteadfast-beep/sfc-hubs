@@ -146,17 +146,16 @@ Papa.parse(sheetURL, {
   }
 });
 
-// Render all trees
+// Render all trees in required order
 function renderTrees(hubs) {
-  renderHubTree(hubs);
-
-  const zones = [...new Set(hubs.map(h => h.zone).filter(Boolean))].sort();
-  const districts = [...new Set(hubs.map(h => h.district).filter(Boolean))].sort();
   const divisions = [...new Set(hubs.map(h => h.division).filter(Boolean))].sort();
+  const districts = [...new Set(hubs.map(h => h.district).filter(Boolean))].sort();
+  const zones = [...new Set(hubs.map(h => h.zone).filter(Boolean))].sort();
 
-  renderSimpleTree("zoneTree", zones);
-  renderSimpleTree("districtTree", districts);
   renderSimpleTree("divisionTree", divisions);
+  renderSimpleTree("districtTree", districts);
+  renderSimpleTree("zoneTree", zones);
+  renderHubTree(hubs);
 }
 
 // Render hub tree
@@ -177,7 +176,7 @@ function renderHubTree(hubs) {
 
     const link = document.createElement("span");
     link.className = "tree-link";
-    link.textContent = `• ${hub.name}`;
+    link.textContent = hub.name;
 
     link.addEventListener("click", function() {
       map.setView(hub.marker.getLatLng(), 12);
@@ -204,10 +203,29 @@ function renderSimpleTree(containerId, items) {
   items.forEach(item => {
     const row = document.createElement("div");
     row.className = "tree-item";
-    row.textContent = `• ${item}`;
+    row.textContent = item;
     container.appendChild(row);
   });
 }
+
+// Collapsible menu
+function initTreeToggles() {
+  const toggles = document.querySelectorAll(".tree-toggle");
+
+  toggles.forEach(toggle => {
+    toggle.addEventListener("click", function() {
+      const targetId = this.getAttribute("data-target");
+      const target = document.getElementById(targetId);
+      if (!target) return;
+
+      target.classList.toggle("hidden");
+      this.classList.toggle("collapsed");
+      this.classList.toggle("active");
+    });
+  });
+}
+
+initTreeToggles();
 
 // Search: filter hub tree only
 document.getElementById("searchBox").addEventListener("input", function() {
