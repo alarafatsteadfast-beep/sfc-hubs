@@ -136,59 +136,80 @@ Papa.parse(sheetURL, {
     });
 
     map.addLayer(markers);
-    renderHubList(allHubs);
+    renderTrees(allHubs);
   },
   error: function() {
-    const hubList = document.getElementById("hubList");
-    if (hubList) {
-      hubList.innerHTML = `
-        <div class="hub-item">
-          <div class="hub-item-name">Failed to load hub data</div>
-        </div>
-      `;
+    const hubTree = document.getElementById("hubTree");
+    if (hubTree) {
+      hubTree.innerHTML = `<div class="tree-item empty-tree">Failed to load hub data</div>`;
     }
   }
 });
 
-// Render sidebar list
-function renderHubList(hubs) {
-  const hubList = document.getElementById("hubList");
-  if (!hubList) return;
+// Render all trees
+function renderTrees(hubs) {
+  renderHubTree(hubs);
 
-  hubList.innerHTML = "";
+  const zones = [...new Set(hubs.map(h => h.zone).filter(Boolean))].sort();
+  const districts = [...new Set(hubs.map(h => h.district).filter(Boolean))].sort();
+  const divisions = [...new Set(hubs.map(h => h.division).filter(Boolean))].sort();
+
+  renderSimpleTree("zoneTree", zones);
+  renderSimpleTree("districtTree", districts);
+  renderSimpleTree("divisionTree", divisions);
+}
+
+// Render hub tree
+function renderHubTree(hubs) {
+  const hubTree = document.getElementById("hubTree");
+  if (!hubTree) return;
+
+  hubTree.innerHTML = "";
 
   if (hubs.length === 0) {
-    hubList.innerHTML = `
-      <div class="hub-item">
-        <div class="hub-item-name">No hubs found</div>
-      </div>
-    `;
+    hubTree.innerHTML = `<div class="tree-item empty-tree">No hubs found</div>`;
     return;
   }
 
   hubs.forEach(hub => {
     const item = document.createElement("div");
-    item.className = "hub-item";
+    item.className = "tree-item";
 
-    item.innerHTML = `
-      <div class="hub-item-name">${hub.name}</div>
-      <div class="hub-item-meta">
-        Zone: ${hub.zone}<br>
-        District: ${hub.district}<br>
-        Division: ${hub.division}
-      </div>
-    `;
+    const link = document.createElement("span");
+    link.className = "tree-link";
+    link.textContent = `• ${hub.name}`;
 
-    item.addEventListener("click", function() {
+    link.addEventListener("click", function() {
       map.setView(hub.marker.getLatLng(), 12);
       hub.marker.openPopup();
     });
 
-    hubList.appendChild(item);
+    item.appendChild(link);
+    hubTree.appendChild(item);
   });
 }
 
-// Search: filter sidebar only
+// Render simple lists
+function renderSimpleTree(containerId, items) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  if (items.length === 0) {
+    container.innerHTML = `<div class="tree-item empty-tree">No data</div>`;
+    return;
+  }
+
+  items.forEach(item => {
+    const row = document.createElement("div");
+    row.className = "tree-item";
+    row.textContent = `• ${item}`;
+    container.appendChild(row);
+  });
+}
+
+// Search: filter hub tree only
 document.getElementById("searchBox").addEventListener("input", function() {
   const value = this.value.toLowerCase().trim();
 
@@ -196,7 +217,7 @@ document.getElementById("searchBox").addEventListener("input", function() {
     hub.name.toLowerCase().includes(value)
   );
 
-  renderHubList(filtered);
+  renderHubTree(filtered);
 });
 
 // Google Maps direction
