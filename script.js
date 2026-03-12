@@ -15,12 +15,36 @@ var allHubs = [];
 const sheetURL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vSYDLFsB6QUf0Vf0kL-COmVR3eh0jXOLnBG1r6stjL7hVf8-kvpV-KjCAv9R9QKAO0C6E00XGfw7I0q/pub?output=csv";
 
+// Live clock
+function updateDateTime() {
+  const timeEl = document.getElementById("liveDateTime");
+  if (!timeEl) return;
+
+  const now = new Date();
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true
+  };
+
+  timeEl.textContent = now.toLocaleString("en-US", options);
+}
+
+updateDateTime();
+setInterval(updateDateTime, 1000);
+
 // Parse CSV
 Papa.parse(sheetURL, {
   download: true,
   header: true,
+  skipEmptyLines: true,
   complete: function(results) {
-    const hubs = results.data;
+    const hubs = results.data || [];
 
     hubs.forEach(hub => {
       if (!hub.lat || !hub.lng) return;
@@ -113,12 +137,24 @@ Papa.parse(sheetURL, {
 
     map.addLayer(markers);
     renderHubList(allHubs);
+  },
+  error: function() {
+    const hubList = document.getElementById("hubList");
+    if (hubList) {
+      hubList.innerHTML = `
+        <div class="hub-item">
+          <div class="hub-item-name">Failed to load hub data</div>
+        </div>
+      `;
+    }
   }
 });
 
 // Render sidebar list
 function renderHubList(hubs) {
   const hubList = document.getElementById("hubList");
+  if (!hubList) return;
+
   hubList.innerHTML = "";
 
   if (hubs.length === 0) {
@@ -153,7 +189,7 @@ function renderHubList(hubs) {
 }
 
 // Search: filter sidebar only
-document.getElementById("searchBox").addEventListener("keyup", function() {
+document.getElementById("searchBox").addEventListener("input", function() {
   const value = this.value.toLowerCase().trim();
 
   const filtered = allHubs.filter(hub =>
@@ -166,5 +202,5 @@ document.getElementById("searchBox").addEventListener("keyup", function() {
 // Google Maps direction
 function openDirections(lat, lng) {
   const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
-  window.open(url, "_blank");
+  window.open(url, "_blank", "noopener,noreferrer");
 }
