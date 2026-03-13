@@ -8,5 +8,9 @@ function initSearch() {
     updateVisibleMarkers(filtered);
     renderTrees(allHubs);
     fitMapToFilteredHubs(filtered);
+
+    if (this.value.trim() !== "") {
+      openSection("hubTree");
+    }
   });
 }

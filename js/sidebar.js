@@ -41,6 +41,7 @@ function renderHubTree(hubs) {
       renderTrees(allHubs);
       map.setView(hub.marker.getLatLng(), 12);
       hub.marker.openPopup();
+      openSection("hubTree");
     });
 
     item.appendChild(link);
@@ -93,4 +94,35 @@ function initTreeToggles() {
       this.classList.toggle("active");
     });
   });
+}
+
+function openSection(targetId) {
+  const target = document.getElementById(targetId);
+  if (!target) return;
+
+  target.classList.remove("hidden");
+
+  const toggle = document.querySelector(`.tree-toggle[data-target="${targetId}"]`);
+  if (toggle) {
+    toggle.classList.add("active");
+  }
+}
+
+function closeSection(targetId) {
+  const target = document.getElementById(targetId);
+  if (!target) return;
+
+  target.classList.add("hidden");
+
+  const toggle = document.querySelector(`.tree-toggle[data-target="${targetId}"]`);
+  if (toggle) {
+    toggle.classList.remove("active");
+  }
+}
+
+function resetAllSections() {
+  closeSection("divisionTree");
+  closeSection("districtTree");
+  closeSection("zoneTree");
+  closeSection("hubTree");
 }

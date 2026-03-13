@@ -24,3 +24,4 @@ initTreeToggles();
 initSearch();
 initClearFilters();
 loadHubData();
+resetAllSections();

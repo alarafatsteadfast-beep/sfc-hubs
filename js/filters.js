@@ -71,6 +71,11 @@ function setDivisionFilter(value) {
   clearLowerFilters("division");
   setActiveSelection("division", value);
   applyFilters();
+
+  openSection("divisionTree");
+  openSection("districtTree");
+  closeSection("zoneTree");
+  closeSection("hubTree");
 }
 
 function setDistrictFilter(value) {
@@ -78,12 +83,22 @@ function setDistrictFilter(value) {
   clearLowerFilters("district");
   setActiveSelection("district", value);
   applyFilters();
+
+  openSection("divisionTree");
+  openSection("districtTree");
+  openSection("zoneTree");
+  closeSection("hubTree");
 }
 
 function setZoneFilter(value) {
   activeFilters.zone = value;
   setActiveSelection("zone", value);
   applyFilters();
+
+  openSection("divisionTree");
+  openSection("districtTree");
+  openSection("zoneTree");
+  openSection("hubTree");
 }
 
 function clearAllFilters() {
@@ -102,6 +117,7 @@ function clearAllFilters() {
   updateVisibleMarkers(allHubs);
   renderTrees(allHubs);
   fitMapToFilteredHubs(allHubs);
+  resetAllSections();
 }
 
 function initClearFilters() {
