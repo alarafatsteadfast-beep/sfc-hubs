@@ -43,7 +43,7 @@ function loadHubData() {
         });
       });
 
-      renderTrees(allHubs);
+      renderTrees();
       updateVisibleMarkers(allHubs);
       updateStats(allHubs);
     },

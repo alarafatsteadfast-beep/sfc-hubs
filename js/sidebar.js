@@ -1,18 +1,10 @@
-function renderTrees(hubs) {
-  const filteredForTree = getFilteredHubs();
-  const divisionScopedHubs = getDivisionScopedHubs();
-  const districtScopedHubs = getDistrictScopedHubs();
+function renderTrees() {
+  const data = getCrossFilteredValues();
 
-  const divisions = [...new Set(filteredForTree.map(h => h.division).filter(Boolean))].sort();
-  const districts = [...new Set(divisionScopedHubs.map(h => h.district).filter(Boolean))].sort();
-  const zones = [...new Set(districtScopedHubs.map(h => h.zone).filter(Boolean))].sort();
-
-  renderClickableTree("divisionTree", divisions, setDivisionFilter, "division");
-  renderClickableTree("districtTree", districts, setDistrictFilter, "district");
-  renderClickableTree("zoneTree", zones, setZoneFilter, "zone");
-  renderHubTree(filteredForTree);
-
-  syncAccordionState();
+  renderClickableTree("divisionTree", data.divisions, setDivisionFilter, "division");
+  renderClickableTree("districtTree", data.districts, setDistrictFilter, "district");
+  renderClickableTree("zoneTree", data.zones, setZoneFilter, "zone");
+  renderHubTree(data.hubs);
 }
 
 function renderHubTree(hubs) {
@@ -40,10 +32,10 @@ function renderHubTree(hubs) {
 
     link.addEventListener("click", function() {
       setActiveSelection("hub", hub.name);
-      renderTrees(allHubs);
+      renderTrees();
       map.setView(hub.marker.getLatLng(), 12);
       hub.marker.openPopup();
-      openOnlySection("hubTree");
+      openRelatedSections("hubTree");
     });
 
     item.appendChild(link);
@@ -88,8 +80,6 @@ function initTreeToggles() {
 
   toggles.forEach(toggle => {
     toggle.addEventListener("click", function() {
-      if (this.classList.contains("disabled")) return;
-
       const targetId = this.getAttribute("data-target");
       const target = document.getElementById(targetId);
       if (!target) return;
@@ -97,7 +87,7 @@ function initTreeToggles() {
       const isHidden = target.classList.contains("hidden");
 
       if (isHidden) {
-        openOnlySection(targetId);
+        openSection(targetId);
       } else {
         closeSection(targetId);
       }
@@ -129,18 +119,6 @@ function closeSection(targetId) {
   }
 }
 
-function openOnlySection(targetId) {
-  const allTargets = ["divisionTree", "districtTree", "zoneTree", "hubTree"];
-
-  allTargets.forEach(id => {
-    if (id === targetId) {
-      openSection(id);
-    } else {
-      closeSection(id);
-    }
-  });
-}
-
 function resetAllSections() {
   closeSection("divisionTree");
   closeSection("districtTree");
@@ -148,24 +126,35 @@ function resetAllSections() {
   closeSection("hubTree");
 }
 
-function setSectionDisabled(targetId, disabled) {
-  const toggle = document.querySelector(`.tree-toggle[data-target="${targetId}"]`);
-  const target = document.getElementById(targetId);
-
-  if (!toggle || !target) return;
-
-  if (disabled) {
-    toggle.classList.add("disabled");
-    target.classList.add("hidden");
-    toggle.classList.remove("active");
-  } else {
-    toggle.classList.remove("disabled");
+function openRelatedSections(targetId) {
+  if (targetId === "divisionTree") {
+    openSection("divisionTree");
+    openSection("districtTree");
+    openSection("zoneTree");
+    openSection("hubTree");
+    return;
   }
-}
 
-function syncAccordionState() {
-  setSectionDisabled("divisionTree", false);
-  setSectionDisabled("districtTree", !activeFilters.division);
-  setSectionDisabled("zoneTree", !activeFilters.district);
-  setSectionDisabled("hubTree", !activeFilters.zone);
+  if (targetId === "districtTree") {
+    openSection("divisionTree");
+    openSection("districtTree");
+    openSection("zoneTree");
+    openSection("hubTree");
+    return;
+  }
+
+  if (targetId === "zoneTree") {
+    openSection("divisionTree");
+    openSection("districtTree");
+    openSection("zoneTree");
+    openSection("hubTree");
+    return;
+  }
+
+  if (targetId === "hubTree") {
+    openSection("divisionTree");
+    openSection("districtTree");
+    openSection("zoneTree");
+    openSection("hubTree");
+  }
 }

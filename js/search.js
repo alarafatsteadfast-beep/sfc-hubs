@@ -6,12 +6,12 @@ function initSearch() {
     const filtered = getFilteredHubs();
 
     updateVisibleMarkers(filtered);
-    renderTrees(allHubs);
+    renderTrees();
     fitMapToFilteredHubs(filtered);
     updateStats(filtered);
 
     if (this.value.trim() !== "") {
-      openSection("hubTree");
+      openRelatedSections("hubTree");
     }
   });
 }

@@ -33,73 +33,46 @@ function getFilteredHubs() {
   });
 }
 
-function getDivisionScopedHubs() {
-  return allHubs.filter(hub => {
-    return !activeFilters.division || hub.division === activeFilters.division;
-  });
+function getCrossFilteredValues() {
+  const filtered = getFilteredHubs();
+
+  return {
+    divisions: [...new Set(filtered.map(h => h.division).filter(Boolean))].sort(),
+    districts: [...new Set(filtered.map(h => h.district).filter(Boolean))].sort(),
+    zones: [...new Set(filtered.map(h => h.zone).filter(Boolean))].sort(),
+    hubs: filtered
+  };
 }
 
-function getDistrictScopedHubs() {
-  return allHubs.filter(hub => {
-    const matchDivision = !activeFilters.division || hub.division === activeFilters.division;
-    const matchDistrict = !activeFilters.district || hub.district === activeFilters.district;
-    return matchDivision && matchDistrict;
-  });
-}
-
-function applyFilters() {
+function applyFilters(openTargetId) {
   const filtered = getFilteredHubs();
 
   updateVisibleMarkers(filtered);
-  renderTrees(allHubs);
+  renderTrees();
   fitMapToFilteredHubs(filtered);
   updateStats(filtered);
-}
 
-function clearLowerFilters(level) {
-  if (level === "division") {
-    activeFilters.district = "";
-    activeFilters.zone = "";
-  }
-
-  if (level === "district") {
-    activeFilters.zone = "";
+  if (openTargetId) {
+    openRelatedSections(openTargetId);
   }
 }
 
 function setDivisionFilter(value) {
   activeFilters.division = value;
-  clearLowerFilters("division");
   setActiveSelection("division", value);
-  applyFilters();
-
-  openSection("divisionTree");
-  openSection("districtTree");
-  closeSection("zoneTree");
-  closeSection("hubTree");
+  applyFilters("divisionTree");
 }
 
 function setDistrictFilter(value) {
   activeFilters.district = value;
-  clearLowerFilters("district");
   setActiveSelection("district", value);
-  applyFilters();
-
-  openSection("divisionTree");
-  openSection("districtTree");
-  openSection("zoneTree");
-  closeSection("hubTree");
+  applyFilters("districtTree");
 }
 
 function setZoneFilter(value) {
   activeFilters.zone = value;
   setActiveSelection("zone", value);
-  applyFilters();
-
-  openSection("divisionTree");
-  openSection("districtTree");
-  openSection("zoneTree");
-  openSection("hubTree");
+  applyFilters("zoneTree");
 }
 
 function clearAllFilters() {
@@ -116,7 +89,7 @@ function clearAllFilters() {
   }
 
   updateVisibleMarkers(allHubs);
-  renderTrees(allHubs);
+  renderTrees();
   fitMapToFilteredHubs(allHubs);
   updateStats(allHubs);
   resetAllSections();
