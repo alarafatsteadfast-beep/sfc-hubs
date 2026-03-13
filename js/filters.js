@@ -33,11 +33,25 @@ function getFilteredHubs() {
   });
 }
 
+function getDivisionScopedHubs() {
+  return allHubs.filter(hub => {
+    return !activeFilters.division || hub.division === activeFilters.division;
+  });
+}
+
+function getDistrictScopedHubs() {
+  return allHubs.filter(hub => {
+    const matchDivision = !activeFilters.division || hub.division === activeFilters.division;
+    const matchDistrict = !activeFilters.district || hub.district === activeFilters.district;
+    return matchDivision && matchDistrict;
+  });
+}
+
 function applyFilters() {
   const filtered = getFilteredHubs();
 
   updateVisibleMarkers(filtered);
-  renderTrees(filtered);
+  renderTrees(allHubs);
   fitMapToFilteredHubs(filtered);
 }
 
