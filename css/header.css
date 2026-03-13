@@ -1,82 +1,76 @@
 .top-header{
-  height: 60px;
+  height: 74px;
   display: grid;
-  grid-template-columns: 165px 1fr 300px;
+  grid-template-columns: 260px 1fr 320px;
   align-items: center;
-  padding: 0 14px;
-  background: #efefef;
-  border-bottom: 1px solid #9f9f9f;
-  gap: 18px;
+  padding: 0 20px;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+  gap: 20px;
 }
 
 .brand-wrap{
-  position: relative;
-  width: 150px;
-  height: 40px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 0;
 }
 
-.brand-logo{
-  font-size: 24px;
-  font-style: italic;
-  font-weight: 700;
-  color: #4a4a4a;
-  line-height: 1;
-  user-select: none;
-}
-
-.brand-sub{
-  font-size: 11px;
-  letter-spacing: 1px;
-  color: #7a7a7a;
-  margin-left: 82px;
-  margin-top: -4px;
-  line-height: 1;
-  user-select: none;
+.brand-logo-img{
+  width: 220px;
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 .header-time{
   text-align: left;
-  font-size: 13px;
-  color: #333;
+  font-size: 14px;
+  color: #475467;
+  font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-left: 50px;
+  padding-left: 12px;
 }
 
 .header-search{
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-  transform: translateX(-50px);
 }
 
 #searchBox{
-  width: 270px;
-  height: 34px;
-  padding: 0 42px 0 18px;
-  border: 1px solid #a9a9a9;
-  border-radius: 18px;
-  background: #f7f7f7;
+  width: 280px;
+  height: 40px;
+  padding: 0 44px 0 18px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 999px;
+  background: #ffffff;
   font-size: 14px;
-  box-sizing: border-box;
+  color: #1f2937;
   outline: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+#searchBox:focus{
+  border-color: #34b87d;
+  box-shadow: 0 0 0 4px rgba(52, 184, 125, 0.12);
 }
 
 #searchBox::placeholder{
-  color: #8a8a8a;
+  color: #98a2b3;
 }
 
 .search-icon{
   position: absolute;
-  right: 30px;
+  right: 14px;
   font-size: 20px;
-  color: #777;
+  color: #667085;
   pointer-events: none;
   user-select: none;
 }

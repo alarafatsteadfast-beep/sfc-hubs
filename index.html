@@ -20,90 +20,91 @@
 
 <body>
 
-  <div class="top-header">
-    <div class="brand-wrap">
-      <div class="brand-logo">SteadFast</div>
-      <div class="brand-sub">Courier</div>
-    </div>
-
-    <div class="header-time" id="liveDateTime">Loading time...</div>
-
-    <div class="header-search">
-      <input id="searchBox" type="text" placeholder="Search Hub" autocomplete="off">
-      <span class="search-icon">⌕</span>
-    </div>
-  </div>
-
-  <div class="layout">
-    <div class="sidebar">
-      <div class="sidebar-title">Hubs List</div>
-
-      <div class="sidebar-actions">
-        <button id="clearFiltersBtn" class="clear-filters-btn" type="button">
-          Clear Filters
-        </button>
+  <div class="app-shell">
+    <div class="top-header">
+      <div class="brand-wrap">
+        <img src="assets/images/steadfast-logo.png" alt="SteadFast Courier" class="brand-logo-img">
       </div>
 
-      <div class="tree-wrap">
-        <div class="tree-section">
-          <button class="tree-toggle tree-box" type="button" data-target="divisionTree">
-            <span>Divisions</span>
-          </button>
-          <div id="divisionTree" class="tree-list hidden"></div>
-        </div>
+      <div class="header-time" id="liveDateTime">Loading time...</div>
 
-        <div class="tree-section">
-          <button class="tree-toggle tree-box" type="button" data-target="districtTree">
-            <span>Districts</span>
-          </button>
-          <div id="districtTree" class="tree-list hidden"></div>
-        </div>
-
-        <div class="tree-section">
-          <button class="tree-toggle tree-box" type="button" data-target="zoneTree">
-            <span>Zones</span>
-          </button>
-          <div id="zoneTree" class="tree-list hidden"></div>
-        </div>
-
-        <div class="tree-section">
-          <button class="tree-toggle tree-box" type="button" data-target="hubTree">
-            <span>Hubs</span>
-          </button>
-          <div id="hubTree" class="tree-list hidden"></div>
-        </div>
+      <div class="header-search">
+        <input id="searchBox" type="text" placeholder="Search Hub" autocomplete="off">
+        <span class="search-icon">⌕</span>
       </div>
     </div>
 
-    <div class="map-panel">
-      <div class="stats-bar">
-        <div class="stat-card">
-          <div class="stat-label">Total Hubs</div>
-          <div class="stat-value" id="totalHubsCount">0</div>
+    <div class="layout">
+      <div class="sidebar">
+        <div class="sidebar-title">Hubs List</div>
+
+        <div class="sidebar-actions">
+          <button id="clearFiltersBtn" class="clear-filters-btn" type="button">
+            Clear Filters
+          </button>
         </div>
 
-        <div class="stat-card">
-          <div class="stat-label">Visible Hubs</div>
-          <div class="stat-value" id="visibleHubsCount">0</div>
-        </div>
+        <div class="tree-wrap">
+          <div class="tree-section">
+            <button class="tree-toggle tree-box" type="button" data-target="divisionTree">
+              <span>Divisions</span>
+            </button>
+            <div id="divisionTree" class="tree-list hidden"></div>
+          </div>
 
-        <div class="stat-card">
-          <div class="stat-label">Divisions</div>
-          <div class="stat-value" id="divisionCount">0</div>
-        </div>
+          <div class="tree-section">
+            <button class="tree-toggle tree-box" type="button" data-target="districtTree">
+              <span>Districts</span>
+            </button>
+            <div id="districtTree" class="tree-list hidden"></div>
+          </div>
 
-        <div class="stat-card">
-          <div class="stat-label">Districts</div>
-          <div class="stat-value" id="districtCount">0</div>
-        </div>
+          <div class="tree-section">
+            <button class="tree-toggle tree-box" type="button" data-target="zoneTree">
+              <span>Zones</span>
+            </button>
+            <div id="zoneTree" class="tree-list hidden"></div>
+          </div>
 
-        <div class="stat-card">
-          <div class="stat-label">Zones</div>
-          <div class="stat-value" id="zoneCount">0</div>
+          <div class="tree-section">
+            <button class="tree-toggle tree-box" type="button" data-target="hubTree">
+              <span>Hubs</span>
+            </button>
+            <div id="hubTree" class="tree-list hidden"></div>
+          </div>
         </div>
       </div>
 
-      <div id="map"></div>
+      <div class="map-panel">
+        <div class="stats-bar">
+          <div class="stat-card">
+            <div class="stat-label">Total Hubs</div>
+            <div class="stat-value" id="totalHubsCount">0</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Visible Hubs</div>
+            <div class="stat-value" id="visibleHubsCount">0</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Divisions</div>
+            <div class="stat-value" id="divisionCount">0</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Districts</div>
+            <div class="stat-value" id="districtCount">0</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Zones</div>
+            <div class="stat-value" id="zoneCount">0</div>
+          </div>
+        </div>
+
+        <div id="map"></div>
+      </div>
     </div>
   </div>
 

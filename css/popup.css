@@ -1,6 +1,7 @@
 .custom-popup .leaflet-popup-content-wrapper{
   padding: 0;
-  border-radius: 12px;
+  border-radius: 16px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
 }
 
 .custom-popup .leaflet-popup-content{
@@ -10,27 +11,30 @@
 
 .hub-popup{
   width: 360px;
-  padding: 12px;
+  padding: 14px;
   box-sizing: border-box;
+  background: #f8fbfc;
 }
 
 .title{
   text-align: center;
-  border-bottom: 2px solid black;
-  padding-bottom: 6px;
-  margin-bottom: 10px;
+  border-bottom: 2px solid rgba(15, 23, 42, 0.14);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+  color: #1f2937;
 }
 
 .box{
-  background: #d9d9d9;
+  background: #e8edef;
   padding: 8px;
-  border-radius: 6px;
+  border-radius: 10px;
   margin-bottom: 6px;
   font-size: 13px;
   width: 100%;
   box-sizing: border-box;
   word-break: break-word;
   overflow-wrap: anywhere;
+  color: #344054;
 }
 
 .grid2{
@@ -45,30 +49,31 @@
 }
 
 .section{
-  background: #bfbfbf;
+  background: #d6dee2;
   text-align: center;
-  padding: 6px;
-  border-radius: 6px;
+  padding: 7px;
+  border-radius: 10px;
   margin-bottom: 8px;
-  font-weight: bold;
+  font-weight: 700;
+  color: #1f2937;
 }
 
 .direction-btn{
-  background: #2f7d57;
+  background: linear-gradient(135deg, #22c27a 0%, #169f64 100%);
   color: #ffffff;
   padding: 10px 18px;
   font-size: 14px;
-  font-weight: 600;
-  border-radius: 8px;
+  font-weight: 700;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   transition: all .2s ease;
+  box-shadow: 0 10px 18px rgba(22, 159, 100, 0.22);
 }
 
 .direction-btn:hover{
-  background: #256447;
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 14px 24px rgba(22, 159, 100, 0.28);
 }
 
 .direction-btn:active{
