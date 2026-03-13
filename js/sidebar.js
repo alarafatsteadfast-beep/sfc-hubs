@@ -31,6 +31,13 @@ function renderHubTree(hubs) {
     }
 
     link.addEventListener("click", function() {
+      if (activeSelection.type === "hub" && activeSelection.value === hub.name) {
+        activeSelection.type = "";
+        activeSelection.value = "";
+        renderTrees();
+        return;
+      }
+
       setActiveSelection("hub", hub.name);
       renderTrees();
       map.setView(hub.marker.getLatLng(), 12);

@@ -14,6 +14,13 @@ function setActiveSelection(type, value) {
   activeSelection.value = value;
 }
 
+function clearActiveSelection(type) {
+  if (activeSelection.type === type) {
+    activeSelection.type = "";
+    activeSelection.value = "";
+  }
+}
+
 function getSearchValue() {
   const searchBox = document.getElementById("searchBox");
   if (!searchBox) return "";
@@ -58,18 +65,48 @@ function applyFilters(openTargetId) {
 }
 
 function setDivisionFilter(value) {
+  if (activeFilters.division === value) {
+    activeFilters.division = "";
+    activeFilters.district = "";
+    activeFilters.zone = "";
+    clearActiveSelection("division");
+    clearActiveSelection("district");
+    clearActiveSelection("zone");
+    clearActiveSelection("hub");
+    applyFilters("divisionTree");
+    return;
+  }
+
   activeFilters.division = value;
   setActiveSelection("division", value);
   applyFilters("divisionTree");
 }
 
 function setDistrictFilter(value) {
+  if (activeFilters.district === value) {
+    activeFilters.district = "";
+    activeFilters.zone = "";
+    clearActiveSelection("district");
+    clearActiveSelection("zone");
+    clearActiveSelection("hub");
+    applyFilters("districtTree");
+    return;
+  }
+
   activeFilters.district = value;
   setActiveSelection("district", value);
   applyFilters("districtTree");
 }
 
 function setZoneFilter(value) {
+  if (activeFilters.zone === value) {
+    activeFilters.zone = "";
+    clearActiveSelection("zone");
+    clearActiveSelection("hub");
+    applyFilters("zoneTree");
+    return;
+  }
+
   activeFilters.zone = value;
   setActiveSelection("zone", value);
   applyFilters("zoneTree");
