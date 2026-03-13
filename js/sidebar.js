@@ -1,16 +1,18 @@
 function renderTrees(hubs) {
+  const filteredForTree = getFilteredHubs();
   const divisionScopedHubs = getDivisionScopedHubs();
   const districtScopedHubs = getDistrictScopedHubs();
-  const fullyFilteredHubs = getFilteredHubs();
 
-  const divisions = [...new Set(allHubs.map(h => h.division).filter(Boolean))].sort();
+  const divisions = [...new Set(filteredForTree.map(h => h.division).filter(Boolean))].sort();
   const districts = [...new Set(divisionScopedHubs.map(h => h.district).filter(Boolean))].sort();
   const zones = [...new Set(districtScopedHubs.map(h => h.zone).filter(Boolean))].sort();
 
   renderClickableTree("divisionTree", divisions, setDivisionFilter, "division");
   renderClickableTree("districtTree", districts, setDistrictFilter, "district");
   renderClickableTree("zoneTree", zones, setZoneFilter, "zone");
-  renderHubTree(fullyFilteredHubs);
+  renderHubTree(filteredForTree);
+
+  syncAccordionState();
 }
 
 function renderHubTree(hubs) {
@@ -41,7 +43,7 @@ function renderHubTree(hubs) {
       renderTrees(allHubs);
       map.setView(hub.marker.getLatLng(), 12);
       hub.marker.openPopup();
-      openSection("hubTree");
+      openOnlySection("hubTree");
     });
 
     item.appendChild(link);
@@ -86,12 +88,19 @@ function initTreeToggles() {
 
   toggles.forEach(toggle => {
     toggle.addEventListener("click", function() {
+      if (this.classList.contains("disabled")) return;
+
       const targetId = this.getAttribute("data-target");
       const target = document.getElementById(targetId);
       if (!target) return;
 
-      target.classList.toggle("hidden");
-      this.classList.toggle("active");
+      const isHidden = target.classList.contains("hidden");
+
+      if (isHidden) {
+        openOnlySection(targetId);
+      } else {
+        closeSection(targetId);
+      }
     });
   });
 }
@@ -120,9 +129,43 @@ function closeSection(targetId) {
   }
 }
 
+function openOnlySection(targetId) {
+  const allTargets = ["divisionTree", "districtTree", "zoneTree", "hubTree"];
+
+  allTargets.forEach(id => {
+    if (id === targetId) {
+      openSection(id);
+    } else {
+      closeSection(id);
+    }
+  });
+}
+
 function resetAllSections() {
   closeSection("divisionTree");
   closeSection("districtTree");
   closeSection("zoneTree");
   closeSection("hubTree");
+}
+
+function setSectionDisabled(targetId, disabled) {
+  const toggle = document.querySelector(`.tree-toggle[data-target="${targetId}"]`);
+  const target = document.getElementById(targetId);
+
+  if (!toggle || !target) return;
+
+  if (disabled) {
+    toggle.classList.add("disabled");
+    target.classList.add("hidden");
+    toggle.classList.remove("active");
+  } else {
+    toggle.classList.remove("disabled");
+  }
+}
+
+function syncAccordionState() {
+  setSectionDisabled("divisionTree", false);
+  setSectionDisabled("districtTree", !activeFilters.division);
+  setSectionDisabled("zoneTree", !activeFilters.district);
+  setSectionDisabled("hubTree", !activeFilters.zone);
 }
