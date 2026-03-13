@@ -3,9 +3,9 @@ function renderTrees(hubs) {
   const districts = [...new Set(hubs.map(h => h.district).filter(Boolean))].sort();
   const zones = [...new Set(hubs.map(h => h.zone).filter(Boolean))].sort();
 
-  renderClickableTree("divisionTree", divisions, setDivisionFilter);
-  renderClickableTree("districtTree", districts, setDistrictFilter);
-  renderClickableTree("zoneTree", zones, setZoneFilter);
+  renderClickableTree("divisionTree", divisions, setDivisionFilter, "division");
+  renderClickableTree("districtTree", districts, setDistrictFilter, "district");
+  renderClickableTree("zoneTree", zones, setZoneFilter, "zone");
   renderHubTree(hubs);
 }
 
@@ -28,7 +28,13 @@ function renderHubTree(hubs) {
     link.className = "tree-link";
     link.textContent = hub.name;
 
+    if (activeSelection.type === "hub" && activeSelection.value === hub.name) {
+      link.classList.add("active-item");
+    }
+
     link.addEventListener("click", function() {
+      setActiveSelection("hub", hub.name);
+      renderTrees(getFilteredHubs());
       map.setView(hub.marker.getLatLng(), 12);
       hub.marker.openPopup();
     });
@@ -38,7 +44,7 @@ function renderHubTree(hubs) {
   });
 }
 
-function renderClickableTree(containerId, items, clickHandler) {
+function renderClickableTree(containerId, items, clickHandler, type) {
   const container = document.getElementById(containerId);
   if (!container) return;
 
@@ -56,6 +62,10 @@ function renderClickableTree(containerId, items, clickHandler) {
     const link = document.createElement("span");
     link.className = "tree-link";
     link.textContent = item;
+
+    if (activeSelection.type === type && activeSelection.value === item) {
+      link.classList.add("active-item");
+    }
 
     link.addEventListener("click", function() {
       clickHandler(item);

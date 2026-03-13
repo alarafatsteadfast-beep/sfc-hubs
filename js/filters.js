@@ -4,6 +4,16 @@ var activeFilters = {
   zone: ""
 };
 
+var activeSelection = {
+  type: "",
+  value: ""
+};
+
+function setActiveSelection(type, value) {
+  activeSelection.type = type;
+  activeSelection.value = value;
+}
+
 function getSearchValue() {
   const searchBox = document.getElementById("searchBox");
   if (!searchBox) return "";
@@ -27,7 +37,7 @@ function applyFilters() {
   const filtered = getFilteredHubs();
 
   updateVisibleMarkers(filtered);
-  renderHubTree(filtered);
+  renderTrees(filtered);
   fitMapToFilteredHubs(filtered);
 }
 
@@ -45,17 +55,20 @@ function clearLowerFilters(level) {
 function setDivisionFilter(value) {
   activeFilters.division = value;
   clearLowerFilters("division");
+  setActiveSelection("division", value);
   applyFilters();
 }
 
 function setDistrictFilter(value) {
   activeFilters.district = value;
   clearLowerFilters("district");
+  setActiveSelection("district", value);
   applyFilters();
 }
 
 function setZoneFilter(value) {
   activeFilters.zone = value;
+  setActiveSelection("zone", value);
   applyFilters();
 }
 
@@ -64,13 +77,16 @@ function clearAllFilters() {
   activeFilters.district = "";
   activeFilters.zone = "";
 
+  activeSelection.type = "";
+  activeSelection.value = "";
+
   const searchBox = document.getElementById("searchBox");
   if (searchBox) {
     searchBox.value = "";
   }
 
   updateVisibleMarkers(allHubs);
-  renderHubTree(allHubs);
+  renderTrees(allHubs);
   fitMapToFilteredHubs(allHubs);
 }
 

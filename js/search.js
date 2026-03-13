@@ -6,7 +6,7 @@ function initSearch() {
     const filtered = getFilteredHubs();
 
     updateVisibleMarkers(filtered);
-    renderHubTree(filtered);
+    renderTrees(filtered);
     fitMapToFilteredHubs(filtered);
   });
 }
