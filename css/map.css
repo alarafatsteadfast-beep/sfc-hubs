@@ -1,6 +1,6 @@
 .layout{
   display: flex;
-  height: calc(100vh - 74px);
+  min-height: calc(100vh - 74px);
   width: 100%;
 }
 
@@ -34,6 +34,7 @@
   padding: 12px 10px;
   text-align: center;
   box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+  min-width: 0;
 }
 
 .stat-label{
@@ -52,6 +53,6 @@
 
 #map{
   flex: 1;
-  height: 100%;
   width: 100%;
+  min-height: 320px;
 }

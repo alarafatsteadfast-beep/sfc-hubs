@@ -27,3 +27,9 @@ initSearch();
 initClearFilters();
 loadHubData();
 resetAllSections();
+
+window.addEventListener("resize", function() {
+  if (typeof map !== "undefined") {
+    map.invalidateSize();
+  }
+});

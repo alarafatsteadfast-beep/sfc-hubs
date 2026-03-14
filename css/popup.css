@@ -7,10 +7,12 @@
 .custom-popup .leaflet-popup-content{
   margin: 0;
   width: 360px !important;
+  max-width: calc(100vw - 32px) !important;
 }
 
 .hub-popup{
   width: 360px;
+  max-width: calc(100vw - 32px);
   padding: 14px;
   box-sizing: border-box;
   background: #f8fbfc;

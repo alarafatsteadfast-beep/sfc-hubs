@@ -1,7 +1,7 @@
 .top-header{
-  height: 74px;
+  min-height: 74px;
   display: grid;
-  grid-template-columns: 260px 1fr 320px;
+  grid-template-columns: minmax(180px, 260px) 1fr minmax(220px, 320px);
   align-items: center;
   padding: 0 20px;
   background: rgba(255,255,255,0.88);
@@ -19,10 +19,9 @@
 }
 
 .brand-logo-img{
-  width: 220px;
+  width: clamp(150px, 20vw, 220px);
   max-width: 100%;
   height: auto;
-  display: block;
 }
 
 .header-time{
@@ -34,6 +33,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   padding-left: 12px;
+  min-width: 0;
 }
 
 .header-search{
@@ -41,10 +41,11 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  min-width: 0;
 }
 
 #searchBox{
-  width: 280px;
+  width: min(100%, 280px);
   height: 40px;
   padding: 0 44px 0 18px;
   border: 1px solid rgba(15, 23, 42, 0.12);

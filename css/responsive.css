@@ -1,14 +1,21 @@
-@media (max-width: 1100px){
+@media (max-width: 1200px){
+  .top-header{
+    grid-template-columns: minmax(160px, 220px) 1fr minmax(220px, 280px);
+    gap: 16px;
+    padding: 0 16px;
+  }
+
   .stats-bar{
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 900px){
+@media (max-width: 992px){
   .top-header{
     grid-template-columns: 1fr;
-    height: auto;
-    padding: 14px;
+    gap: 12px;
+    min-height: auto;
+    padding: 14px 16px;
   }
 
   .brand-wrap{
@@ -26,23 +33,20 @@
 
   .header-search{
     justify-content: center;
-    transform: none;
   }
 
   .layout{
     flex-direction: column;
-    height: auto;
+    min-height: auto;
   }
 
   .sidebar{
     width: calc(100% - 28px);
     min-width: calc(100% - 28px);
     max-width: calc(100% - 28px);
-    height: auto;
-    min-height: 74px;
     margin: 14px;
     margin-bottom: 0;
-    border-right: none;
+    min-height: 74px;
   }
 
   .sidebar.collapsed{
@@ -60,7 +64,7 @@
   }
 
   .map-panel{
-    margin-left: 14px;
+    margin: 14px;
   }
 
   .stats-bar{
@@ -68,29 +72,129 @@
   }
 
   #map{
-    height: 70vh;
+    min-height: 65vh;
   }
 }
 
-@media (max-width: 480px){
+@media (max-width: 768px){
+  .top-header{
+    padding: 12px 14px;
+  }
+
+  .brand-logo-img{
+    width: 180px;
+  }
+
+  .header-time{
+    font-size: 13px;
+  }
+
+  #searchBox{
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .sidebar-topbar{
+    padding: 10px;
+  }
+
+  .sidebar-title{
+    font-size: 16px;
+  }
+
+  .stats-bar{
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .stat-card{
+    padding: 10px 8px;
+    border-radius: 14px;
+  }
+
+  .stat-value{
+    font-size: 18px;
+  }
+
+  #map{
+    min-height: 58vh;
+  }
+}
+
+@media (max-width: 560px){
+  .stats-bar{
+    grid-template-columns: 1fr 1fr;
+  }
+
   .grid2{
     grid-template-columns: 1fr;
   }
 
   .custom-popup .leaflet-popup-content{
-    width: 100% !important;
+    width: auto !important;
+    max-width: calc(100vw - 24px) !important;
   }
 
   .hub-popup{
     width: 100%;
+    max-width: calc(100vw - 24px);
+    padding: 12px;
+  }
+
+  .direction-btn{
+    width: 100%;
+  }
+}
+
+@media (max-width: 420px){
+  .top-header{
+    padding: 10px 12px;
+  }
+
+  .brand-logo-img{
+    width: 160px;
   }
 
   #searchBox{
-    width: 100%;
-    max-width: 280px;
+    max-width: 100%;
+    height: 38px;
+    font-size: 13px;
+  }
+
+  .sidebar{
+    width: calc(100% - 20px);
+    min-width: calc(100% - 20px);
+    max-width: calc(100% - 20px);
+    margin: 10px;
+    margin-bottom: 0;
+    border-radius: 16px;
+  }
+
+  .sidebar.collapsed{
+    width: calc(100% - 20px);
+    min-width: calc(100% - 20px);
+    max-width: calc(100% - 20px);
+  }
+
+  .map-panel{
+    margin: 10px;
+    border-radius: 16px;
   }
 
   .stats-bar{
     grid-template-columns: 1fr;
+    padding: 10px;
+  }
+
+  .stat-card{
+    padding: 10px;
+  }
+
+  .stat-value{
+    font-size: 17px;
+  }
+
+  #map{
+    min-height: 52vh;
   }
 }
