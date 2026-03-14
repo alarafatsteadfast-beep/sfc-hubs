@@ -21,6 +21,8 @@ updateDateTime();
 setInterval(updateDateTime, 1000);
 
 initTreeToggles();
+initSidebarCollapse();
+initSidebarRail();
 initSearch();
 initClearFilters();
 loadHubData();

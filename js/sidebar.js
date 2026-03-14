@@ -121,6 +121,7 @@ function initSidebarCollapse() {
 function initSidebarRail() {
   const sidebar = document.getElementById("sidebar");
   const railButtons = document.querySelectorAll(".rail-btn");
+
   if (!sidebar || railButtons.length === 0) return;
 
   railButtons.forEach(btn => {
@@ -139,6 +140,7 @@ function initSidebarRail() {
 
       setTimeout(function() {
         openSection(target);
+
         if (typeof map !== "undefined") {
           map.invalidateSize();
         }
