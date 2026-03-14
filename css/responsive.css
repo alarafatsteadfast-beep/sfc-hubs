@@ -32,7 +32,8 @@
   }
 
   .header-search{
-    justify-content: center;
+    justify-self: center;
+    width: min(100%, 320px);
   }
 
   .layout{
@@ -89,9 +90,13 @@
     font-size: 13px;
   }
 
+  .header-search{
+    width: min(100%, 320px);
+  }
+
   #searchBox{
     width: 100%;
-    max-width: 320px;
+    max-width: 100%;
   }
 
   .sidebar-topbar{
@@ -153,6 +158,11 @@
 
   .brand-logo-img{
     width: 160px;
+  }
+
+  .header-search{
+    width: 100%;
+    max-width: 280px;
   }
 
   #searchBox{
