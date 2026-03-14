@@ -1,6 +1,31 @@
 const sheetURL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vSYDLFsB6QUf0Vf0kL-COmVR3eh0jXOLnBG1r6stjL7hVf8-kvpV-KjCAv9R9QKAO0C6E00XGfw7I0q/pub?output=csv";
 
+function hideLoadingScreen() {
+  const loadingScreen = document.getElementById("loadingScreen");
+  if (!loadingScreen) return;
+
+  loadingScreen.style.display = "none";
+}
+
+function showLoadError() {
+  const loadingText = document.querySelector(".loading-text");
+  const loadingSpinner = document.querySelector(".loading-spinner");
+
+  if (loadingText) {
+    loadingText.textContent = "Failed to load hub data";
+  }
+
+  if (loadingSpinner) {
+    loadingSpinner.style.display = "none";
+  }
+
+  const hubTree = document.getElementById("hubTree");
+  if (hubTree) {
+    hubTree.innerHTML = `<div class="tree-item empty-tree">Failed to load hub data</div>`;
+  }
+}
+
 function loadHubData() {
   Papa.parse(sheetURL, {
     download: true,
@@ -46,12 +71,10 @@ function loadHubData() {
       renderTrees();
       updateVisibleMarkers(allHubs);
       updateStats(allHubs);
+      hideLoadingScreen();
     },
     error: function() {
-      const hubTree = document.getElementById("hubTree");
-      if (hubTree) {
-        hubTree.innerHTML = `<div class="tree-item empty-tree">Failed to load hub data</div>`;
-      }
+      showLoadError();
     }
   });
 }

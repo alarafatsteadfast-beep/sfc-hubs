@@ -21,3 +21,48 @@ body{
     radial-gradient(circle at top right, rgba(52, 184, 125, 0.08), transparent 28%),
     linear-gradient(180deg, #f8fbfc 0%, #eef3f5 100%);
 }
+
+.loading-screen{
+  position: fixed;
+  inset: 0;
+  background: #f3f6f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading-box{
+  text-align: center;
+  padding: 24px;
+}
+
+.loading-logo{
+  width: 220px;
+  max-width: 80vw;
+  height: auto;
+  display: block;
+  margin: 0 auto 20px;
+}
+
+.loading-text{
+  font-size: 16px;
+  font-weight: 700;
+  color: #344054;
+  margin-bottom: 20px;
+}
+
+.loading-spinner{
+  width: 38px;
+  height: 38px;
+  margin: 0 auto;
+  border: 4px solid #d0d5dd;
+  border-top: 4px solid #22c27a;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin{
+  from{ transform: rotate(0deg); }
+  to{ transform: rotate(360deg); }
+}
