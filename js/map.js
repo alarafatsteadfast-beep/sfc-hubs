@@ -1,4 +1,7 @@
-var map = L.map('map').setView([23.6850, 90.3563], 7);
+var DEFAULT_MAP_CENTER = [23.6850, 90.3563];
+var DEFAULT_MAP_ZOOM = 7;
+
+var map = L.map('map').setView(DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap'
@@ -16,6 +19,8 @@ var markers = L.markerClusterGroup({
 var hubMarkers = [];
 var allHubs = [];
 var activePulseMarker = null;
+var userLocationMarker = null;
+var toastTimer = null;
 
 map.addLayer(markers);
 
@@ -107,4 +112,105 @@ function hideHubDetailsPanel() {
   if (overlay) {
     overlay.classList.add("hidden");
   }
+}
+
+function resetMapView() {
+  hideHubDetailsPanel();
+  map.flyTo(DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM, {
+    duration: 0.8
+  });
+}
+
+function goToMyLocation() {
+  if (!navigator.geolocation) {
+    showMapToast("Location is not supported on this device.");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    function(position) {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+
+      if (userLocationMarker) {
+        map.removeLayer(userLocationMarker);
+      }
+
+      userLocationMarker = L.circleMarker([lat, lng], {
+        radius: 8,
+        weight: 3,
+        color: "#169f64",
+        fillColor: "#22c27a",
+        fillOpacity: 0.9
+      }).addTo(map);
+
+      map.flyTo([lat, lng], 13, {
+        duration: 0.8
+      });
+
+      showMapToast("Your location found.");
+    },
+    function() {
+      showMapToast("Unable to get your location.");
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 10000
+    }
+  );
+}
+
+function showMarkerHover(hub, originalEvent) {
+  if (window.innerWidth <= 768) return;
+
+  const card = document.getElementById("markerHoverCard");
+  if (!card || !hub || !originalEvent) return;
+
+  const point = map.mouseEventToContainerPoint(originalEvent);
+  const mapSize = map.getSize();
+
+  let left = point.x + 16;
+  let top = point.y - 14;
+
+  if (left > mapSize.x - 190) {
+    left = point.x - 190;
+  }
+
+  if (top > mapSize.y - 90) {
+    top = mapSize.y - 90;
+  }
+
+  if (top < 10) {
+    top = 10;
+  }
+
+  card.style.left = left + "px";
+  card.style.top = top + "px";
+
+  card.innerHTML = `
+    <div class="marker-hover-title">${hub.name}</div>
+    <div class="marker-hover-meta">${hub.district || "-"} • ${hub.division || "-"}</div>
+    <div class="marker-hover-meta">Zone: ${hub.zone || "-"}</div>
+  `;
+
+  card.classList.remove("hidden");
+}
+
+function hideMarkerHover() {
+  const card = document.getElementById("markerHoverCard");
+  if (!card) return;
+  card.classList.add("hidden");
+}
+
+function showMapToast(message) {
+  const toast = document.getElementById("mapToast");
+  if (!toast) return;
+
+  toast.textContent = message;
+  toast.classList.remove("hidden");
+
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function() {
+    toast.classList.add("hidden");
+  }, 2200);
 }

@@ -1,4 +1,11 @@
 function buildPopup(hub, lat, lng) {
+  const preferredPhone =
+    hub.hub_phone ||
+    hub.manager_phone ||
+    hub.assistant_manager_phone ||
+    hub.hub_assistant_phone ||
+    "";
+
   return `
     <div class="hub-popup">
 
@@ -54,6 +61,28 @@ function buildPopup(hub, lat, lng) {
         <button class="direction-btn" onclick="openDirections(${lat},${lng})">
           📍 Get Directions
         </button>
+
+        <div class="hub-popup-secondary-actions">
+          <button
+            class="secondary-action-btn"
+            onclick='callPhone(${JSON.stringify(preferredPhone)})'
+            ${preferredPhone ? "" : "disabled"}>
+            📞 Call
+          </button>
+
+          <button
+            class="secondary-action-btn"
+            onclick='copyTextValue(${JSON.stringify(preferredPhone)}, "Phone number")'
+            ${preferredPhone ? "" : "disabled"}>
+            📋 Copy Phone
+          </button>
+
+          <button
+            class="secondary-action-btn"
+            onclick="copyCoordinates(${lat}, ${lng})">
+            🧭 Copy Coords
+          </button>
+        </div>
       </div>
 
     </div>
@@ -63,4 +92,51 @@ function buildPopup(hub, lat, lng) {
 function openDirections(lat, lng) {
   const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
   window.open(url, "_blank", "noopener,noreferrer");
+}
+
+function callPhone(phone) {
+  if (!phone) {
+    showMapToast("Phone number not available.");
+    return;
+  }
+
+  window.location.href = `tel:${phone}`;
+}
+
+function copyTextValue(value, label) {
+  if (!value) {
+    showMapToast(`${label} not available.`);
+    return;
+  }
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(value).then(function() {
+      showMapToast(`${label} copied.`);
+    }).catch(function() {
+      fallbackCopy(value, label);
+    });
+    return;
+  }
+
+  fallbackCopy(value, label);
+}
+
+function copyCoordinates(lat, lng) {
+  copyTextValue(`${lat}, ${lng}`, "Coordinates");
+}
+
+function fallbackCopy(value, label) {
+  const temp = document.createElement("textarea");
+  temp.value = value;
+  document.body.appendChild(temp);
+  temp.select();
+
+  try {
+    document.execCommand("copy");
+    showMapToast(`${label} copied.`);
+  } catch (e) {
+    showMapToast(`Could not copy ${label.toLowerCase()}.`);
+  }
+
+  document.body.removeChild(temp);
 }

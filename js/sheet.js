@@ -57,6 +57,30 @@ function loadHubData() {
           }
         });
 
+        marker.on("mouseover", function(e) {
+          const matchedHub = allHubs.find(function(item) {
+            return item.marker === marker;
+          });
+
+          if (matchedHub) {
+            showMarkerHover(matchedHub, e.originalEvent);
+          }
+        });
+
+        marker.on("mousemove", function(e) {
+          const matchedHub = allHubs.find(function(item) {
+            return item.marker === marker;
+          });
+
+          if (matchedHub) {
+            showMarkerHover(matchedHub, e.originalEvent);
+          }
+        });
+
+        marker.on("mouseout", function() {
+          hideMarkerHover();
+        });
+
         marker.hubName = (hub.name || "").toLowerCase();
         marker.hubData = hub;
 
