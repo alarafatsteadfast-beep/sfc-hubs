@@ -228,8 +228,9 @@
 
 .rail-btn{
   position: relative;
-  width: 44px;
-  height: 44px;
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
   border: 1px solid rgba(15, 23, 42, 0.08);
   background: #eef2f4;
   color: #344054;
