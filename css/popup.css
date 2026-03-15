@@ -1,7 +1,7 @@
 .hub-popup{
   width: 100%;
   height: 100%;
-  max-height: 520px;
+  max-height: 560px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
