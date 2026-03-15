@@ -9,6 +9,8 @@
   border-bottom: 1px solid rgba(15, 23, 42, 0.08);
   box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
   gap: 20px;
+  position: relative;
+  z-index: 3000;
 }
 
 .brand-wrap{
@@ -41,6 +43,7 @@
   width: min(100%, 300px);
   max-width: 300px;
   justify-self: end;
+  z-index: 3100;
 }
 
 #searchBox{
