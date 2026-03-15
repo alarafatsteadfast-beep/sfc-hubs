@@ -6,6 +6,20 @@ function buildPopup(hub, lat, lng) {
     hub.hub_assistant_phone ||
     "";
 
+  function phoneBox(label, value) {
+    return `
+      <div class="box box-copy">
+        <div class="box-copy-text"><b>${label}:</b> ${value || ""}</div>
+        <button
+          class="inline-copy-btn"
+          onclick='copyTextValue(${JSON.stringify(value || "")}, ${JSON.stringify(label)})'
+          ${value ? "" : "disabled"}>
+          Copy
+        </button>
+      </div>
+    `;
+  }
+
   return `
     <div class="hub-popup">
 
@@ -27,8 +41,13 @@ function buildPopup(hub, lat, lng) {
           <div class="box"><b>Division:</b> ${hub.division || ""}</div>
         </div>
 
-        <div class="box">
-          <b>Coordinates:</b> ${lat}, ${lng}
+        <div class="box box-copy">
+          <div class="box-copy-text"><b>Coordinates:</b> ${lat}, ${lng}</div>
+          <button
+            class="inline-copy-btn"
+            onclick="copyCoordinates(${lat}, ${lng})">
+            Copy
+          </button>
         </div>
 
         <hr>
@@ -37,22 +56,22 @@ function buildPopup(hub, lat, lng) {
 
         <div class="grid2">
           <div class="box"><b>Hub IP:</b> ${hub.hub_ip || ""}</div>
-          <div class="box"><b>Hub Phone:</b> ${hub.hub_phone || ""}</div>
+          ${phoneBox("Hub Phone", hub.hub_phone || "")}
         </div>
 
         <div class="grid2">
           <div class="box"><b>Manager:</b> ${hub.manager || ""}</div>
-          <div class="box"><b>Phone:</b> ${hub.manager_phone || ""}</div>
+          ${phoneBox("Phone", hub.manager_phone || "")}
         </div>
 
         <div class="grid2">
           <div class="box"><b>Asst. Manager:</b> ${hub.assistant_manager || ""}</div>
-          <div class="box"><b>Phone:</b> ${hub.assistant_manager_phone || ""}</div>
+          ${phoneBox("Phone", hub.assistant_manager_phone || "")}
         </div>
 
         <div class="grid2">
           <div class="box"><b>Hub Asst:</b> ${hub.hub_assistant || ""}</div>
-          <div class="box"><b>Phone:</b> ${hub.hub_assistant_phone || ""}</div>
+          ${phoneBox("Phone", hub.hub_assistant_phone || "")}
         </div>
 
       </div>
@@ -68,13 +87,6 @@ function buildPopup(hub, lat, lng) {
             onclick='callPhone(${JSON.stringify(preferredPhone)})'
             ${preferredPhone ? "" : "disabled"}>
             📞 Call
-          </button>
-
-          <button
-            class="secondary-action-btn"
-            onclick='copyTextValue(${JSON.stringify(preferredPhone)}, "Phone number")'
-            ${preferredPhone ? "" : "disabled"}>
-            📋 Copy Phone
           </button>
 
           <button
