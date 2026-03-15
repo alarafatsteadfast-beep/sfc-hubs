@@ -12,11 +12,11 @@ function buildPopup(hub, lat, lng) {
 
   function phoneBox(label, value) {
     return `
-      <div class="box box-copy">
+      <div class="box box-copy phone-copy-target" data-phone-value="${escapeHtmlAttr(value || "")}">
         <div class="box-copy-text"><b>${label}:</b> ${value || ""}</div>
         <button
           class="inline-copy-btn"
-          onclick='copyTextValue(${JSON.stringify(value || "")}, ${JSON.stringify(label)})'
+          onclick='copyTextValue(${JSON.stringify(value || "")}, ${JSON.stringify(label)}, this)'
           aria-label="Copy ${label}"
           title="Copy ${label}"
           ${value ? "" : "disabled"}>
@@ -51,7 +51,7 @@ function buildPopup(hub, lat, lng) {
           <div class="box-copy-text"><b>Coordinates:</b> ${lat}, ${lng}</div>
           <button
             class="inline-copy-btn"
-            onclick="copyCoordinates(${lat}, ${lng})"
+            onclick="copyCoordinates(${lat}, ${lng}, this)"
             aria-label="Copy Coordinates"
             title="Copy Coordinates">
             ${copyIcon("Coordinates")}
@@ -99,7 +99,7 @@ function buildPopup(hub, lat, lng) {
 
           <button
             class="secondary-action-btn"
-            onclick="copyCoordinates(${lat}, ${lng})">
+            onclick="copyCoordinates(${lat}, ${lng}, this)">
             🧭 Copy Coords
           </button>
         </div>
@@ -123,7 +123,7 @@ function callPhone(phone) {
   window.location.href = `tel:${phone}`;
 }
 
-function copyTextValue(value, label) {
+function copyTextValue(value, label, triggerEl) {
   if (!value) {
     showMapToast(`${label} not available.`);
     return;
@@ -132,20 +132,22 @@ function copyTextValue(value, label) {
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(value).then(function() {
       showMapToast(`${label} copied.`);
+      showCopySuccess(triggerEl);
+      highlightPhoneBox(triggerEl);
     }).catch(function() {
-      fallbackCopy(value, label);
+      fallbackCopy(value, label, triggerEl);
     });
     return;
   }
 
-  fallbackCopy(value, label);
+  fallbackCopy(value, label, triggerEl);
 }
 
-function copyCoordinates(lat, lng) {
-  copyTextValue(`${lat}, ${lng}`, "Coordinates");
+function copyCoordinates(lat, lng, triggerEl) {
+  copyTextValue(`${lat}, ${lng}`, "Coordinates", triggerEl);
 }
 
-function fallbackCopy(value, label) {
+function fallbackCopy(value, label, triggerEl) {
   const temp = document.createElement("textarea");
   temp.value = value;
   document.body.appendChild(temp);
@@ -154,9 +156,57 @@ function fallbackCopy(value, label) {
   try {
     document.execCommand("copy");
     showMapToast(`${label} copied.`);
+    showCopySuccess(triggerEl);
+    highlightPhoneBox(triggerEl);
   } catch (e) {
     showMapToast(`Could not copy ${label.toLowerCase()}.`);
   }
 
   document.body.removeChild(temp);
+}
+
+function showCopySuccess(triggerEl) {
+  if (!triggerEl) return;
+
+  triggerEl.classList.add("copy-success");
+
+  const icon = triggerEl.querySelector(".inline-copy-icon");
+  const oldSrc = icon ? icon.getAttribute("src") : "";
+  const oldAlt = icon ? icon.getAttribute("alt") : "";
+
+  if (icon) {
+    icon.setAttribute("src", "assets/images/copy.png");
+    icon.setAttribute("alt", "Copied");
+  }
+
+  clearTimeout(triggerEl._copyTimer);
+  triggerEl._copyTimer = setTimeout(function() {
+    triggerEl.classList.remove("copy-success");
+    if (icon) {
+      icon.setAttribute("src", oldSrc || "assets/images/copy.png");
+      icon.setAttribute("alt", oldAlt || "Copy");
+    }
+  }, 800);
+}
+
+function highlightPhoneBox(triggerEl) {
+  if (!triggerEl || window.innerWidth > 768) return;
+
+  const targetBox = triggerEl.closest(".phone-copy-target");
+  if (!targetBox) return;
+
+  targetBox.classList.add("phone-tap-active");
+
+  clearTimeout(targetBox._tapTimer);
+  targetBox._tapTimer = setTimeout(function() {
+    targetBox.classList.remove("phone-tap-active");
+  }, 700);
+}
+
+function escapeHtmlAttr(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }

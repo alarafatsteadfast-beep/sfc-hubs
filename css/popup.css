@@ -33,6 +33,7 @@
   word-break: break-word;
   overflow-wrap: anywhere;
   color: #344054;
+  transition: background .2s ease, box-shadow .2s ease, transform .15s ease;
 }
 
 .box-copy{
@@ -47,6 +48,16 @@
   flex: 1;
   word-break: break-word;
   overflow-wrap: anywhere;
+}
+
+.phone-copy-target{
+  cursor: pointer;
+}
+
+.phone-copy-target.phone-tap-active{
+  background: rgba(34, 194, 122, 0.16);
+  box-shadow: 0 0 0 2px rgba(34, 194, 122, 0.16) inset;
+  transform: translateY(-1px);
 }
 
 .inline-copy-btn{
@@ -79,6 +90,16 @@
   object-fit: contain;
   display: block;
   pointer-events: none;
+  transition: transform .18s ease, opacity .18s ease;
+}
+
+.inline-copy-btn.copy-success{
+  background: rgba(34, 194, 122, 0.16);
+  border-color: rgba(22, 159, 100, 0.35);
+}
+
+.inline-copy-btn.copy-success .inline-copy-icon{
+  transform: scale(1.08);
 }
 
 .grid2{
