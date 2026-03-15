@@ -39,6 +39,7 @@
 .header-search{
   position: relative;
   width: min(100%, 300px);
+  max-width: 300px;
   justify-self: end;
 }
 
