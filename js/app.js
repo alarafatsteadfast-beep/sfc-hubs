@@ -29,19 +29,68 @@ loadHubData();
 resetAllSections();
 
 const hubDetailsClose = document.getElementById("hubDetailsClose");
+const hubPanel = document.getElementById("hubDetailsPanel");
+const overlay = document.getElementById("mapOverlay");
+
 if (hubDetailsClose) {
-  hubDetailsClose.addEventListener("click", function() {
-    hideHubDetailsPanel();
-  });
+  hubDetailsClose.addEventListener("click", hideHubDetailsPanel);
 }
 
-const overlay = document.getElementById("mapOverlay");
 if (overlay) {
   overlay.addEventListener("click", hideHubDetailsPanel);
 }
 
+let startY = 0;
+let currentY = 0;
+let dragging = false;
+
+if (hubPanel) {
+
+  hubPanel.addEventListener("touchstart", function(e) {
+
+    if (window.innerWidth > 768) return;
+
+    dragging = true;
+    startY = e.touches[0].clientY;
+
+  });
+
+  hubPanel.addEventListener("touchmove", function(e) {
+
+    if (!dragging) return;
+
+    currentY = e.touches[0].clientY;
+
+    const diff = currentY - startY;
+
+    if (diff > 0) {
+      hubPanel.style.transform = `translateY(${diff}px)`;
+    }
+
+  });
+
+  hubPanel.addEventListener("touchend", function() {
+
+    dragging = false;
+
+    const diff = currentY - startY;
+
+    if (diff > 120) {
+      hideHubDetailsPanel();
+      hubPanel.style.transform = "";
+      return;
+    }
+
+    hubPanel.style.transform = "";
+
+  });
+
+}
+
 window.addEventListener("resize", function() {
+
   if (typeof map !== "undefined") {
     map.invalidateSize();
   }
+
 });
