@@ -22,6 +22,7 @@ function renderHubTree(hubs) {
   hubs.forEach(hub => {
     const item = document.createElement("div");
     item.className = "tree-item";
+    item.dataset.hubName = hub.name;
 
     const link = document.createElement("span");
     link.className = "tree-link";
@@ -41,8 +42,8 @@ function renderHubTree(hubs) {
 
       setActiveSelection("hub", hub.name);
       renderTrees();
-      map.setView(hub.marker.getLatLng(), 12);
-      hub.marker.openPopup();
+      focusHubOnMap(hub, 12);
+      scrollToHubTreeItem(hub.name);
     });
 
     item.appendChild(link);
@@ -134,8 +135,14 @@ function initSidebarCollapse() {
   const toggleBtn = document.getElementById("sidebarToggleBtn");
   if (!sidebar || !toggleBtn) return;
 
+  const savedState = localStorage.getItem("sfc_sidebar_collapsed");
+  if (savedState === "true") {
+    sidebar.classList.add("collapsed");
+  }
+
   toggleBtn.addEventListener("click", function() {
     sidebar.classList.toggle("collapsed");
+    localStorage.setItem("sfc_sidebar_collapsed", sidebar.classList.contains("collapsed"));
 
     setTimeout(function() {
       if (typeof map !== "undefined") {
@@ -164,6 +171,7 @@ function initSidebarRail() {
       if (!target) return;
 
       sidebar.classList.remove("collapsed");
+      localStorage.setItem("sfc_sidebar_collapsed", "false");
 
       setTimeout(function() {
         openSection(target);
@@ -205,4 +213,21 @@ function resetAllSections() {
   closeSection("districtTree");
   closeSection("zoneTree");
   closeSection("hubTree");
+}
+
+function scrollToHubTreeItem(hubName) {
+  const hubTree = document.getElementById("hubTree");
+  if (!hubTree) return;
+
+  openSection("hubTree");
+
+  setTimeout(function() {
+    const targetItem = hubTree.querySelector(`[data-hub-name="${CSS.escape(hubName)}"]`);
+    if (targetItem) {
+      targetItem.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+      });
+    }
+  }, 100);
 }

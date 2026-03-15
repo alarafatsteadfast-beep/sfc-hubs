@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="css/sidebar.css">
   <link rel="stylesheet" href="css/map.css">
   <link rel="stylesheet" href="css/popup.css">
+  <link rel="stylesheet" href="css/search.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
 
@@ -23,7 +24,7 @@
   <div id="loadingScreen" class="loading-screen">
     <div class="loading-box">
       <img src="assets/images/steadfast-logo.png" alt="SteadFast Courier" class="loading-logo">
-      <div class="loading-text">Loading Hub Details...</div>
+      <div class="loading-text">Loading Hub Data...</div>
       <div class="loading-spinner"></div>
     </div>
   </div>
@@ -39,6 +40,7 @@
       <div class="header-search">
         <input id="searchBox" type="text" placeholder="Search Hub" autocomplete="off">
         <span class="search-icon">⌕</span>
+        <div id="searchSuggestions" class="search-suggestions hidden"></div>
       </div>
     </div>
 

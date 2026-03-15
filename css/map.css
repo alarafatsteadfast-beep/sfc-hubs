@@ -23,3 +23,46 @@
   width: 100%;
   min-height: 320px;
 }
+
+/* custom cluster look */
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large{
+  background: rgba(34, 194, 122, 0.18);
+  border-radius: 999px;
+}
+
+.marker-cluster-small div,
+.marker-cluster-medium div,
+.marker-cluster-large div{
+  background: linear-gradient(135deg, #22c27a 0%, #169f64 100%);
+  color: #ffffff;
+  border-radius: 999px;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(22, 159, 100, 0.28);
+}
+
+/* selected marker pulse */
+.selected-hub-marker{
+  position: relative;
+}
+
+.selected-hub-marker::after{
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border-radius: 999px;
+  border: 3px solid rgba(34, 194, 122, 0.55);
+  animation: hubPulse 1.4s ease-out 2;
+}
+
+@keyframes hubPulse{
+  0%{
+    transform: scale(0.7);
+    opacity: 0.9;
+  }
+  100%{
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}

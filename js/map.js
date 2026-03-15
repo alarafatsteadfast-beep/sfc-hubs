@@ -4,9 +4,18 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap'
 }).addTo(map);
 
-var markers = L.markerClusterGroup();
+var markers = L.markerClusterGroup({
+  showCoverageOnHover: false,
+  spiderfyOnMaxZoom: true,
+  removeOutsideVisibleBounds: true,
+  animate: true,
+  animateAddingMarkers: true,
+  maxClusterRadius: 45
+});
+
 var hubMarkers = [];
 var allHubs = [];
+var activePulseMarker = null;
 
 map.addLayer(markers);
 
@@ -24,10 +33,45 @@ function fitMapToFilteredHubs(filteredHubs) {
   if (!filteredHubs || filteredHubs.length === 0) return;
 
   if (filteredHubs.length === 1) {
-    map.setView(filteredHubs[0].marker.getLatLng(), 12);
+    map.flyTo(filteredHubs[0].marker.getLatLng(), 12, {
+      duration: 0.8
+    });
     return;
   }
 
   const group = L.featureGroup(filteredHubs.map(h => h.marker));
-  map.fitBounds(group.getBounds(), { padding: [30, 30] });
+  map.flyToBounds(group.getBounds(), {
+    padding: [30, 30],
+    duration: 0.8
+  });
+}
+
+function focusHubOnMap(hub, zoomLevel) {
+  if (!hub || !hub.marker) return;
+
+  map.flyTo(hub.marker.getLatLng(), zoomLevel || 12, {
+    duration: 0.8
+  });
+
+  setTimeout(function() {
+    hub.marker.openPopup();
+    pulseMarker(hub.marker);
+  }, 350);
+}
+
+function pulseMarker(marker) {
+  if (!marker || !marker._icon) return;
+
+  if (activePulseMarker && activePulseMarker._icon) {
+    activePulseMarker._icon.classList.remove("selected-hub-marker");
+  }
+
+  activePulseMarker = marker;
+  marker._icon.classList.add("selected-hub-marker");
+
+  setTimeout(function() {
+    if (marker && marker._icon) {
+      marker._icon.classList.remove("selected-hub-marker");
+    }
+  }, 3000);
 }

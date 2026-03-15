@@ -120,6 +120,7 @@ function clearAllFilters() {
     searchBox.value = "";
   }
 
+  hideSearchSuggestions();
   updateVisibleMarkers(allHubs);
   renderTrees();
   fitMapToFilteredHubs(allHubs);
