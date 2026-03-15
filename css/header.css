@@ -1,7 +1,7 @@
 .top-header{
   min-height: 74px;
   display: grid;
-  grid-template-columns: minmax(180px, 260px) 1fr minmax(220px, 320px);
+  grid-template-columns: minmax(180px, 240px) minmax(220px, 1fr) minmax(240px, 320px);
   align-items: center;
   padding: 0 20px;
   background: rgba(255,255,255,0.88);
@@ -32,17 +32,14 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-left: 12px;
   min-width: 0;
-  position: relative;
-  left: -30px;
+  justify-self: start;
 }
 
 .header-search{
   position: relative;
   width: min(100%, 280px);
   justify-self: end;
-  left: -100px;
 }
 
 #searchBox{
