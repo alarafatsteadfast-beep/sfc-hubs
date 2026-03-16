@@ -5,6 +5,7 @@
   box-sizing:border-box;
   background:transparent;
   position:relative;
+  z-index:1;
 }
 
 .hub-favorite-btn{
@@ -20,10 +21,11 @@
   font-size:18px;
   line-height:1;
   cursor:pointer;
-  z-index:2;
+  z-index:5001;
   display:flex;
   align-items:center;
   justify-content:center;
+  pointer-events:auto;
 }
 
 .hub-favorite-btn:hover{
