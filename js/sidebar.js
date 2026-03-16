@@ -226,6 +226,26 @@ function initSidebarRail() {
   });
 }
 
+function initSidebarPanels() {
+  const toggles = document.querySelectorAll(".sidebar-panel-toggle");
+
+  toggles.forEach(toggle => {
+    toggle.addEventListener("click", function() {
+      const targetId = this.getAttribute("data-panel-target");
+      const target = document.getElementById(targetId);
+      const icon = this.querySelector(".sidebar-panel-toggle-icon");
+
+      if (!target) return;
+
+      target.classList.toggle("hidden");
+
+      if (icon) {
+        icon.textContent = target.classList.contains("hidden") ? "+" : "−";
+      }
+    });
+  });
+}
+
 function openSection(targetId) {
   const target = document.getElementById(targetId);
   if (!target) return;

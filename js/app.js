@@ -22,6 +22,7 @@ setInterval(updateDateTime, 1000);
 
 initTreeToggles();
 initSidebarCollapse();
+initSidebarPanels();
 initSidebarRail();
 initSearch();
 initClearFilters();

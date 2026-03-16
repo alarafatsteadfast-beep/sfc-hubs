@@ -21,18 +21,12 @@
 
 <body>
 
-  <div id="loadingScreen" class="loading-screen">
-    <div class="loading-box">
-      <img src="assets/images/steadfast-logo.png" alt="SteadFast Courier" class="loading-logo">
-      <div class="loading-text">Loading Hub Data...</div>
-      <div class="loading-spinner"></div>
-    </div>
-  </div>
-
   <div class="app-shell">
+
     <div class="top-header">
+
       <div class="brand-wrap">
-        <img src="assets/images/steadfast-logo.png" alt="SteadFast Courier" class="brand-logo-img">
+        <img src="assets/images/steadfast-logo.png" class="brand-logo-img">
       </div>
 
       <div class="header-time" id="liveDateTime">Loading time...</div>
@@ -42,101 +36,118 @@
         <span class="search-icon">⌕</span>
         <div id="searchSuggestions" class="search-suggestions hidden"></div>
       </div>
+
     </div>
 
     <div class="layout">
+
       <div class="sidebar" id="sidebar">
+
         <div class="sidebar-topbar">
+
           <div class="sidebar-title-wrap">
             <div class="sidebar-title">Navigation</div>
             <div class="sidebar-subtitle">Hub discovery panel</div>
           </div>
 
-          <button id="sidebarToggleBtn" class="sidebar-toggle-btn" type="button" aria-label="Toggle sidebar">
-            ☰
-          </button>
+          <button id="sidebarToggleBtn" class="sidebar-toggle-btn">☰</button>
+
         </div>
 
         <div class="sidebar-icon-rail">
-          <button class="rail-btn" type="button" data-rail-action="clear" title="Clear Filters">
-            <img src="assets/images/clear-filter.png" alt="Clear Filters" class="rail-icon">
+
+          <button class="rail-btn" data-rail-action="clear" title="Clear Filters">
+            <img src="assets/images/clear-filter.png" class="rail-icon">
           </button>
 
-          <button class="rail-btn" type="button" data-rail-target="quickAccessPanel" title="Quick Access">
-            <img src="assets/images/quick-access.png" alt="Quick Access" class="rail-icon">
+          <button class="rail-btn" data-rail-target="quickAccessPanel" title="Quick Access">
+            <img src="assets/images/quick-access.png" class="rail-icon">
           </button>
 
-          <button class="rail-btn" type="button" data-rail-target="divisionTree" title="Divisions">
-            <img src="assets/images/division.png" alt="Divisions" class="rail-icon">
+          <button class="rail-btn" data-rail-target="divisionTree" title="Divisions">
+            <img src="assets/images/division.png" class="rail-icon">
             <span class="rail-badge" id="divisionRailCount">0</span>
           </button>
 
-          <button class="rail-btn" type="button" data-rail-target="districtTree" title="Districts">
-            <img src="assets/images/district.png" alt="Districts" class="rail-icon">
+          <button class="rail-btn" data-rail-target="districtTree" title="Districts">
+            <img src="assets/images/district.png" class="rail-icon">
             <span class="rail-badge" id="districtRailCount">0</span>
           </button>
 
-          <button class="rail-btn" type="button" data-rail-target="zoneTree" title="Zones">
-            <img src="assets/images/zone.png" alt="Zones" class="rail-icon">
+          <button class="rail-btn" data-rail-target="zoneTree" title="Zones">
+            <img src="assets/images/zone.png" class="rail-icon">
             <span class="rail-badge" id="zoneRailCount">0</span>
           </button>
 
-          <button class="rail-btn" type="button" data-rail-target="hubTree" title="Hubs">
-            <img src="assets/images/Hubs.png" alt="Hubs" class="rail-icon">
+          <button class="rail-btn" data-rail-target="hubTree" title="Hubs">
+            <img src="assets/images/Hubs.png" class="rail-icon">
             <span class="rail-badge" id="hubRailCount">0</span>
           </button>
+
         </div>
 
         <div class="sidebar-body">
+
           <div class="sidebar-actions">
-            <button id="clearFiltersBtn" class="clear-filters-btn" type="button">
-              Clear Filters
-            </button>
+            <button id="clearFiltersBtn" class="clear-filters-btn">Clear Filters</button>
           </div>
 
           <div class="sidebar-scroll-area">
 
             <div class="sidebar-panel quick-access-panel" id="quickAccessPanel">
-              <div class="sidebar-panel-title">Quick Access</div>
 
-              <div class="quick-access-grid">
-                <div class="quick-card selected-hub-card">
-                  <div class="quick-card-label">Selected Hub</div>
-                  <div class="quick-card-value" id="selectedHubLabel">None selected</div>
+              <button class="sidebar-panel-toggle" type="button" data-panel-target="quickAccessContent">
+                <span class="sidebar-panel-title">Quick Access</span>
+                <span class="sidebar-panel-toggle-icon" id="quickAccessToggleIcon">−</span>
+              </button>
+
+              <div id="quickAccessContent" class="sidebar-panel-content">
+
+                <div class="quick-access-grid">
+
+                  <div class="quick-card">
+                    <div class="quick-card-label">Selected Hub</div>
+                    <div class="quick-card-value" id="selectedHubLabel">None selected</div>
+                  </div>
+
+                  <div class="quick-card">
+                    <div class="quick-card-label">Favorites</div>
+                    <div class="quick-card-value" id="favoriteHubCount">0 hubs</div>
+                  </div>
+
+                  <div class="quick-card">
+                    <div class="quick-card-label">Recently Viewed</div>
+                    <div class="quick-card-value" id="recentHubCount">0 hubs</div>
+                  </div>
+
                 </div>
 
-                <div class="quick-card favorite-hubs-card">
-                  <div class="quick-card-label">Favorites</div>
-                  <div class="quick-card-value" id="favoriteHubCount">0 hubs</div>
+                <div class="quick-list-block">
+                  <div class="quick-list-title">Favorites</div>
+                  <div id="favoriteHubList" class="quick-list">
+                    <div class="quick-empty">No favorite hubs yet</div>
+                  </div>
                 </div>
 
-                <div class="quick-card recent-hubs-card">
-                  <div class="quick-card-label">Recently Viewed</div>
-                  <div class="quick-card-value" id="recentHubCount">0 hubs</div>
+                <div class="quick-list-block">
+                  <div class="quick-list-title">Recently Viewed</div>
+                  <div id="recentHubList" class="quick-list">
+                    <div class="quick-empty">No recent hubs yet</div>
+                  </div>
                 </div>
+
               </div>
 
-              <div class="quick-list-block">
-                <div class="quick-list-title">Favorites</div>
-                <div id="favoriteHubList" class="quick-list empty-state-list">
-                  <div class="quick-empty">No favorite hubs yet</div>
-                </div>
-              </div>
-
-              <div class="quick-list-block">
-                <div class="quick-list-title">Recently Viewed</div>
-                <div id="recentHubList" class="quick-list empty-state-list">
-                  <div class="quick-empty">No recent hubs yet</div>
-                </div>
-              </div>
             </div>
 
             <div class="sidebar-panel filter-panel">
-              <div class="sidebar-panel-title">Filters</div>
+
+              <div class="sidebar-panel-title">Hub Filters</div>
 
               <div class="tree-wrap">
+
                 <div class="tree-section">
-                  <button class="tree-toggle tree-box" type="button" data-target="divisionTree">
+                  <button class="tree-toggle tree-box" data-target="divisionTree">
                     <span class="tree-box-label">Divisions</span>
                     <span class="tree-box-count" id="divisionTreeCount">0</span>
                   </button>
@@ -144,7 +155,7 @@
                 </div>
 
                 <div class="tree-section">
-                  <button class="tree-toggle tree-box" type="button" data-target="districtTree">
+                  <button class="tree-toggle tree-box" data-target="districtTree">
                     <span class="tree-box-label">Districts</span>
                     <span class="tree-box-count" id="districtTreeCount">0</span>
                   </button>
@@ -152,7 +163,7 @@
                 </div>
 
                 <div class="tree-section">
-                  <button class="tree-toggle tree-box" type="button" data-target="zoneTree">
+                  <button class="tree-toggle tree-box" data-target="zoneTree">
                     <span class="tree-box-label">Zones</span>
                     <span class="tree-box-count" id="zoneTreeCount">0</span>
                   </button>
@@ -160,13 +171,15 @@
                 </div>
 
                 <div class="tree-section">
-                  <button class="tree-toggle tree-box" type="button" data-target="hubTree">
+                  <button class="tree-toggle tree-box" data-target="hubTree">
                     <span class="tree-box-label">Hubs</span>
                     <span class="tree-box-count" id="hubTreeCount">0</span>
                   </button>
                   <div id="hubTree" class="tree-list hidden"></div>
                 </div>
+
               </div>
+
             </div>
 
           </div>
@@ -174,12 +187,12 @@
       </div>
 
       <div class="map-panel">
+
         <div class="map-tools">
-          <button id="resetMapBtn" class="map-tool-btn" type="button">Reset Map</button>
-          <button id="myLocationBtn" class="map-tool-btn" type="button">My Location</button>
+          <button id="resetMapBtn" class="map-tool-btn">Reset Map</button>
+          <button id="myLocationBtn" class="map-tool-btn">My Location</button>
         </div>
 
-        <div id="markerHoverCard" class="marker-hover-card hidden"></div>
         <div id="mapToast" class="map-toast hidden"></div>
 
         <div id="map"></div>
@@ -187,11 +200,14 @@
         <div id="mapOverlay" class="map-overlay hidden"></div>
 
         <div id="hubDetailsPanel" class="hub-details-panel hidden">
-          <button id="hubDetailsClose" class="hub-details-close" type="button" aria-label="Close details">×</button>
+          <button id="hubDetailsClose" class="hub-details-close">×</button>
           <div id="hubDetailsContent"></div>
         </div>
+
       </div>
+
     </div>
+
   </div>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
