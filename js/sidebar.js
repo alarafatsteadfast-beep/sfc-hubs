@@ -114,7 +114,6 @@ function toggleFavoriteHub(hub) {
   }
 
   localStorage.setItem("sfc_favorite_hubs", JSON.stringify(favoriteHubs));
-
   updateQuickAccessPreview();
 
   if (activeSelection.type === "hub" && activeSelection.value === hub.name) {
@@ -141,7 +140,7 @@ function renderFavoritesList() {
       <div class="quick-list-item-meta">${hub.district || ""}</div>
     `;
 
-    item.addEventListener("click", () => {
+    item.addEventListener("click", function() {
       const target = allHubs.find(h => h.name === hub.name);
       if (!target) return;
       focusHubOnMap(target, 12);
@@ -170,7 +169,7 @@ function renderRecentHubList() {
       <div class="quick-list-item-meta">${hub.district || ""}</div>
     `;
 
-    item.addEventListener("click", () => {
+    item.addEventListener("click", function() {
       const target = allHubs.find(h => h.name === hub.name);
       if (!target) return;
       focusHubOnMap(target, 12);
@@ -253,10 +252,6 @@ function initSidebarPanel() {
   });
 }
 
-function initSidebarPanels() {
-  initSidebarPanel();
-}
-
 function initSidebarCollapse() {
   const sidebar = document.getElementById("sidebar");
   const btn = document.getElementById("sidebarToggleBtn");
@@ -309,17 +304,17 @@ function initSidebarRail() {
       localStorage.setItem("sfc_sidebar_collapsed", "false");
 
       setTimeout(function() {
-        if (target !== "quickAccessPanel") {
-          openSection(target);
-        }
-
         const quickPanel = document.getElementById("quickAccessPanel");
+
         if (target === "quickAccessPanel" && quickPanel) {
           quickPanel.scrollIntoView({
             behavior: "smooth",
             block: "start"
           });
+          return;
         }
+
+        openSection(target);
 
         if (typeof map !== "undefined") {
           map.invalidateSize();
@@ -356,6 +351,8 @@ function closeSection(targetId) {
 function scrollToHubTreeItem(name) {
   const hubTree = document.getElementById("hubTree");
   if (!hubTree) return;
+
+  openSection("hubTree");
 
   setTimeout(() => {
     const el = hubTree.querySelector(`[data-hub-name="${CSS.escape(name)}"]`);

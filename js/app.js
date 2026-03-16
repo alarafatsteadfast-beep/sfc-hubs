@@ -175,19 +175,10 @@ function restorePhase2StateWhenReady() {
 
       restoreMapSession();
       restoreSidebarScroll();
-
       handleURLNavigation();
 
       if (!window.location.search) {
         restoreLastSelectedHub();
-      }
-
-      if (typeof renderFavoritesList === "function") {
-        renderFavoritesList();
-      }
-
-      if (typeof renderRecentHubList === "function") {
-        renderRecentHubList();
       }
 
       if (typeof updateQuickAccessPreview === "function") {
@@ -213,10 +204,6 @@ if (typeof initSidebarPanel === "function") {
   initSidebarPanel();
 }
 
-if (typeof initSidebarPanels === "function") {
-  initSidebarPanels();
-}
-
 if (typeof initSidebarCollapse === "function") {
   initSidebarCollapse();
 }
@@ -234,24 +221,55 @@ restorePhase2StateWhenReady();
 
 const hubDetailsClose = document.getElementById("hubDetailsClose");
 if (hubDetailsClose) {
-  hubDetailsClose.addEventListener("click", function() {
+  hubDetailsClose.addEventListener("click", function(e) {
+    e.preventDefault();
+    e.stopPropagation();
     hideHubDetailsPanel();
   });
 }
 
 const overlay = document.getElementById("mapOverlay");
 if (overlay) {
-  overlay.addEventListener("click", hideHubDetailsPanel);
+  overlay.addEventListener("click", function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    hideHubDetailsPanel();
+  });
 }
+
+document.addEventListener("click", function(e) {
+  const closeBtn = e.target.closest("#hubDetailsClose");
+  if (closeBtn) {
+    e.preventDefault();
+    e.stopPropagation();
+    hideHubDetailsPanel();
+    return;
+  }
+
+  const overlayEl = e.target.closest("#mapOverlay");
+  if (overlayEl && !overlayEl.classList.contains("hidden")) {
+    e.preventDefault();
+    e.stopPropagation();
+    hideHubDetailsPanel();
+  }
+});
 
 const resetMapBtn = document.getElementById("resetMapBtn");
 if (resetMapBtn) {
-  resetMapBtn.addEventListener("click", resetMapView);
+  resetMapBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    resetMapView();
+  });
 }
 
 const myLocationBtn = document.getElementById("myLocationBtn");
 if (myLocationBtn) {
-  myLocationBtn.addEventListener("click", goToMyLocation);
+  myLocationBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    goToMyLocation();
+  });
 }
 
 const sidebarScrollArea = document.querySelector(".sidebar-scroll-area");
