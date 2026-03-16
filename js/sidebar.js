@@ -6,6 +6,7 @@ function renderTrees() {
   renderClickableTree("zoneTree", data.zones, setZoneFilter, "zone");
   renderHubTree(data.hubs);
   updateSidebarCounts(data);
+  updateQuickAccessPreview();
 }
 
 function renderHubTree(hubs) {
@@ -110,6 +111,37 @@ function updateSidebarCounts(data) {
   if (hubRailCount) hubRailCount.textContent = hubCount;
 }
 
+function updateQuickAccessPreview() {
+  const selectedHubLabel = document.getElementById("selectedHubLabel");
+  const favoriteHubCount = document.getElementById("favoriteHubCount");
+  const recentHubCount = document.getElementById("recentHubCount");
+  const favoriteHubList = document.getElementById("favoriteHubList");
+  const recentHubList = document.getElementById("recentHubList");
+
+  if (selectedHubLabel) {
+    selectedHubLabel.textContent =
+      activeSelection.type === "hub" && activeSelection.value
+        ? activeSelection.value
+        : "None selected";
+  }
+
+  if (favoriteHubCount) {
+    favoriteHubCount.textContent = "0 hubs";
+  }
+
+  if (recentHubCount) {
+    recentHubCount.textContent = "0 hubs";
+  }
+
+  if (favoriteHubList) {
+    favoriteHubList.innerHTML = `<div class="quick-empty">No favorite hubs yet</div>`;
+  }
+
+  if (recentHubList) {
+    recentHubList.innerHTML = `<div class="quick-empty">No recent hubs yet</div>`;
+  }
+}
+
 function initTreeToggles() {
   const toggles = document.querySelectorAll(".tree-toggle");
 
@@ -174,7 +206,17 @@ function initSidebarRail() {
       localStorage.setItem("sfc_sidebar_collapsed", "false");
 
       setTimeout(function() {
-        openSection(target);
+        if (target !== "quickAccessPanel") {
+          openSection(target);
+        }
+
+        const quickPanel = document.getElementById("quickAccessPanel");
+        if (target === "quickAccessPanel" && quickPanel) {
+          quickPanel.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }
 
         if (typeof map !== "undefined") {
           map.invalidateSize();

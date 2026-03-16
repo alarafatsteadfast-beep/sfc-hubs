@@ -47,7 +47,11 @@
     <div class="layout">
       <div class="sidebar" id="sidebar">
         <div class="sidebar-topbar">
-          <div class="sidebar-title">Hubs List</div>
+          <div class="sidebar-title-wrap">
+            <div class="sidebar-title">Navigation</div>
+            <div class="sidebar-subtitle">Hub discovery panel</div>
+          </div>
+
           <button id="sidebarToggleBtn" class="sidebar-toggle-btn" type="button" aria-label="Toggle sidebar">
             ☰
           </button>
@@ -56,6 +60,10 @@
         <div class="sidebar-icon-rail">
           <button class="rail-btn" type="button" data-rail-action="clear" title="Clear Filters">
             <img src="assets/images/clear-filter.png" alt="Clear Filters" class="rail-icon">
+          </button>
+
+          <button class="rail-btn" type="button" data-rail-target="quickAccessPanel" title="Quick Access">
+            <img src="assets/images/Hubs.png" alt="Quick Access" class="rail-icon">
           </button>
 
           <button class="rail-btn" type="button" data-rail-target="divisionTree" title="Divisions">
@@ -86,38 +94,81 @@
             </button>
           </div>
 
-          <div class="tree-wrap">
-            <div class="tree-section">
-              <button class="tree-toggle tree-box" type="button" data-target="divisionTree">
-                <span class="tree-box-label">Divisions</span>
-                <span class="tree-box-count" id="divisionTreeCount">0</span>
-              </button>
-              <div id="divisionTree" class="tree-list hidden"></div>
+          <div class="sidebar-scroll-area">
+
+            <div class="sidebar-panel quick-access-panel" id="quickAccessPanel">
+              <div class="sidebar-panel-title">Quick Access</div>
+
+              <div class="quick-access-grid">
+                <div class="quick-card selected-hub-card">
+                  <div class="quick-card-label">Selected Hub</div>
+                  <div class="quick-card-value" id="selectedHubLabel">None selected</div>
+                </div>
+
+                <div class="quick-card favorite-hubs-card">
+                  <div class="quick-card-label">Favorites</div>
+                  <div class="quick-card-value" id="favoriteHubCount">0 hubs</div>
+                </div>
+
+                <div class="quick-card recent-hubs-card">
+                  <div class="quick-card-label">Recently Viewed</div>
+                  <div class="quick-card-value" id="recentHubCount">0 hubs</div>
+                </div>
+              </div>
+
+              <div class="quick-list-block">
+                <div class="quick-list-title">Favorites</div>
+                <div id="favoriteHubList" class="quick-list empty-state-list">
+                  <div class="quick-empty">No favorite hubs yet</div>
+                </div>
+              </div>
+
+              <div class="quick-list-block">
+                <div class="quick-list-title">Recently Viewed</div>
+                <div id="recentHubList" class="quick-list empty-state-list">
+                  <div class="quick-empty">No recent hubs yet</div>
+                </div>
+              </div>
             </div>
 
-            <div class="tree-section">
-              <button class="tree-toggle tree-box" type="button" data-target="districtTree">
-                <span class="tree-box-label">Districts</span>
-                <span class="tree-box-count" id="districtTreeCount">0</span>
-              </button>
-              <div id="districtTree" class="tree-list hidden"></div>
+            <div class="sidebar-panel filter-panel">
+              <div class="sidebar-panel-title">Filters</div>
+
+              <div class="tree-wrap">
+                <div class="tree-section">
+                  <button class="tree-toggle tree-box" type="button" data-target="divisionTree">
+                    <span class="tree-box-label">Divisions</span>
+                    <span class="tree-box-count" id="divisionTreeCount">0</span>
+                  </button>
+                  <div id="divisionTree" class="tree-list hidden"></div>
+                </div>
+
+                <div class="tree-section">
+                  <button class="tree-toggle tree-box" type="button" data-target="districtTree">
+                    <span class="tree-box-label">Districts</span>
+                    <span class="tree-box-count" id="districtTreeCount">0</span>
+                  </button>
+                  <div id="districtTree" class="tree-list hidden"></div>
+                </div>
+
+                <div class="tree-section">
+                  <button class="tree-toggle tree-box" type="button" data-target="zoneTree">
+                    <span class="tree-box-label">Zones</span>
+                    <span class="tree-box-count" id="zoneTreeCount">0</span>
+                  </button>
+                  <div id="zoneTree" class="tree-list hidden"></div>
+                </div>
+
+                <div class="tree-section">
+                  <button class="tree-toggle tree-box" type="button" data-target="hubTree">
+                    <span class="tree-box-label">Hubs</span>
+                    <span class="tree-box-count" id="hubTreeCount">0</span>
+                  </button>
+                  <div id="hubTree" class="tree-list hidden"></div>
+                </div>
+              </div>
             </div>
 
-            <div class="tree-section">
-              <button class="tree-toggle tree-box" type="button" data-target="zoneTree">
-                <span class="tree-box-label">Zones</span>
-                <span class="tree-box-count" id="zoneTreeCount">0</span>
-              </button>
-              <div id="zoneTree" class="tree-list hidden"></div>
-            </div>
-
-            <div class="tree-section">
-              <button class="tree-toggle tree-box" type="button" data-target="hubTree">
-                <span class="tree-box-label">Hubs</span>
-                <span class="tree-box-count" id="hubTreeCount">0</span>
-              </button>
-              <div id="hubTree" class="tree-list hidden"></div>
-            </div>
           </div>
         </div>
       </div>
