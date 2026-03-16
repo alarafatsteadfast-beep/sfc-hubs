@@ -480,3 +480,29 @@
   box-shadow: 0 4px 10px rgba(239, 68, 68, 0.28);
   line-height: 1;
 }
+
+.filter-toolbar{
+  display:flex;
+  gap:6px;
+  margin-bottom:8px;
+}
+
+.filter-toolbar-btn{
+  width:32px;
+  height:28px;
+  border:1px solid rgba(15, 23, 42, 0.08);
+  background:#eef2f4;
+  color:#344054;
+  border-radius:8px;
+  font-size:16px;
+  font-weight:800;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:all 0.2s ease;
+}
+
+.filter-toolbar-btn:hover{
+  background:#e3e8eb;
+}
