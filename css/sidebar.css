@@ -24,9 +24,10 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 14px 12px;
+  padding: 12px 10px;
   border-bottom: 1px solid rgba(15, 23, 42, 0.06);
   background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  flex-shrink: 0;
 }
 
 .sidebar-title-wrap{
@@ -35,7 +36,7 @@
 }
 
 .sidebar-title{
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
   color: #1f2937;
   text-align: left;
@@ -45,24 +46,24 @@
 }
 
 .sidebar-subtitle{
-  font-size: 11px;
+  font-size: 10px;
   color: #98a2b3;
-  margin-top: 2px;
+  margin-top: 1px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .sidebar-toggle-btn{
-  width: 36px;
-  min-width: 36px;
-  height: 36px;
+  width: 34px;
+  min-width: 34px;
+  height: 34px;
   border: 1px solid rgba(15, 23, 42, 0.08);
   background: #eef2f4;
   color: #344054;
   border-radius: 10px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   transition: all 0.2s ease;
 }
@@ -93,7 +94,7 @@
 }
 
 .sidebar-actions{
-  padding: 10px 10px 8px;
+  padding: 8px 8px 6px;
   border-bottom: 1px solid rgba(15, 23, 42, 0.06);
   flex-shrink: 0;
 }
@@ -103,8 +104,8 @@
   border: 1px solid rgba(15, 23, 42, 0.08);
   background: #eef2f4;
   color: #344054;
-  padding: 9px 10px;
-  font-size: 12px;
+  padding: 8px 9px;
+  font-size: 11px;
   font-weight: 700;
   border-radius: 10px;
   cursor: pointer;
@@ -118,93 +119,109 @@
 .sidebar-scroll-area{
   flex: 1;
   min-height: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 10px;
+  overflow: hidden;
+  padding: 8px;
   text-align: left;
-  scrollbar-width: thin;
-}
-
-.sidebar-scroll-area::-webkit-scrollbar{
-  width: 8px;
-}
-
-.sidebar-scroll-area::-webkit-scrollbar-thumb{
-  background: rgba(15, 23, 42, 0.16);
-  border-radius: 999px;
-}
-
-.sidebar-scroll-area::-webkit-scrollbar-track{
-  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .sidebar-panel{
   background: rgba(248, 250, 252, 0.7);
   border: 1px solid rgba(15, 23, 42, 0.06);
-  border-radius: 16px;
-  padding: 10px;
-  margin-bottom: 12px;
+  border-radius: 14px;
+  padding: 8px;
+  margin-bottom: 0;
+}
+
+.quick-access-panel{
+  flex-shrink: 0;
+}
+
+.filter-panel{
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .sidebar-panel-title{
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 800;
   color: #344054;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .quick-access-grid{
   display: grid;
   grid-template-columns: 1fr;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: 6px;
+  margin-bottom: 8px;
 }
 
 .quick-card{
   background: #ffffff;
   border: 1px solid rgba(15, 23, 42, 0.06);
-  border-radius: 12px;
-  padding: 10px 12px;
+  border-radius: 10px;
+  padding: 8px 10px;
 }
 
 .quick-card-label{
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   color: #98a2b3;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
   text-transform: uppercase;
-  letter-spacing: .3px;
+  letter-spacing: .25px;
 }
 
 .quick-card-value{
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   color: #1f2937;
   word-break: break-word;
 }
 
 .quick-list-block{
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 .quick-list-title{
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 800;
   color: #475467;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .quick-list{
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
+  max-height: 92px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.quick-list::-webkit-scrollbar{
+  width: 6px;
+}
+
+.quick-list::-webkit-scrollbar-thumb{
+  background: rgba(15, 23, 42, 0.14);
+  border-radius: 999px;
+}
+
+.quick-list::-webkit-scrollbar-track{
+  background: transparent;
 }
 
 .quick-list-item{
   background: #ffffff;
   border: 1px solid rgba(15, 23, 42, 0.06);
-  border-radius: 10px;
-  padding: 9px 10px;
+  border-radius: 9px;
+  padding: 7px 8px;
   cursor: pointer;
   transition: all .18s ease;
 }
@@ -215,7 +232,7 @@
 }
 
 .quick-list-item-name{
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   color: #1f2937;
   margin-bottom: 2px;
@@ -223,25 +240,43 @@
 }
 
 .quick-list-item-meta{
-  font-size: 11px;
+  font-size: 10px;
   color: #667085;
-  line-height: 1.35;
+  line-height: 1.3;
 }
 
 .quick-empty{
-  font-size: 12px;
+  font-size: 11px;
   color: #98a2b3;
   font-style: italic;
-  padding: 6px 2px;
+  padding: 4px 2px;
 }
 
 .tree-wrap{
   padding: 0;
   text-align: left;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 2px;
+}
+
+.tree-wrap::-webkit-scrollbar{
+  width: 7px;
+}
+
+.tree-wrap::-webkit-scrollbar-thumb{
+  background: rgba(15, 23, 42, 0.16);
+  border-radius: 999px;
+}
+
+.tree-wrap::-webkit-scrollbar-track{
+  background: transparent;
 }
 
 .tree-section{
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .tree-toggle{
@@ -260,9 +295,9 @@
   width: 100%;
   background: #edf2f4;
   color: #475467;
-  padding: 8px 10px;
-  border-radius: 10px;
-  font-size: 12px;
+  padding: 7px 9px;
+  border-radius: 9px;
+  font-size: 11px;
   font-weight: 700;
   transition: all 0.2s ease;
 }
@@ -274,7 +309,7 @@
 .tree-box.active{
   background: linear-gradient(135deg, #22c27a 0%, #169f64 100%);
   color: #ffffff;
-  box-shadow: 0 8px 18px rgba(22, 159, 100, 0.22);
+  box-shadow: 0 6px 14px rgba(22, 159, 100, 0.20);
 }
 
 .tree-box-label{
@@ -286,15 +321,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 22px;
-  height: 22px;
-  padding: 0 7px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
   border-radius: 999px;
   background: rgba(15, 23, 42, 0.08);
   color: inherit;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 800;
-  margin-left: 8px;
+  margin-left: 6px;
 }
 
 .tree-box.active .tree-box-count{
@@ -303,7 +338,7 @@
 }
 
 .tree-list{
-  padding: 4px 0 0 0;
+  padding: 3px 0 0 0;
 }
 
 .tree-list.hidden{
@@ -313,9 +348,9 @@
 .tree-item{
   display: block;
   margin: 0;
-  padding: 2px 6px 2px 12px;
-  font-size: 11px;
-  line-height: 1.15;
+  padding: 1px 4px 1px 10px;
+  font-size: 10px;
+  line-height: 1.1;
   color: #667085;
   word-break: break-word;
 }
@@ -326,8 +361,8 @@
   cursor: pointer;
   color: #475467;
   text-decoration: none;
-  padding: 5px 7px;
-  border-radius: 7px;
+  padding: 4px 6px;
+  border-radius: 6px;
   transition: all 0.18s ease;
 }
 
