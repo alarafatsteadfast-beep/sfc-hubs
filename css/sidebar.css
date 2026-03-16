@@ -148,6 +148,14 @@
   overflow: hidden;
 }
 
+.filter-panel-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
 .sidebar-panel-toggle{
   width: 100%;
   border: none;
@@ -172,6 +180,10 @@
   text-align: left;
 }
 
+.filter-panel-header .sidebar-panel-title{
+  margin-bottom: 0;
+}
+
 .sidebar-panel-toggle-icon{
   width: 18px;
   height: 18px;
@@ -188,6 +200,37 @@
 
 .sidebar-panel-content.hidden{
   display: none;
+}
+
+.filter-toolbar{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.filter-toolbar-btn{
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.08);
+  color: #475467;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.filter-toolbar-btn:hover{
+  background: rgba(15, 23, 42, 0.14);
+  color: #1f2937;
 }
 
 .quick-access-grid{
@@ -479,30 +522,4 @@
   justify-content: center;
   box-shadow: 0 4px 10px rgba(239, 68, 68, 0.28);
   line-height: 1;
-}
-
-.filter-toolbar{
-  display:flex;
-  gap:6px;
-  margin-bottom:8px;
-}
-
-.filter-toolbar-btn{
-  width:32px;
-  height:28px;
-  border:1px solid rgba(15, 23, 42, 0.08);
-  background:#eef2f4;
-  color:#344054;
-  border-radius:8px;
-  font-size:16px;
-  font-weight:800;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:all 0.2s ease;
-}
-
-.filter-toolbar-btn:hover{
-  background:#e3e8eb;
 }

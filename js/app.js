@@ -17,53 +17,6 @@ function updateDateTime() {
   timeEl.textContent = now.toLocaleString("en-US", options);
 }
 
-function restoreMapSession() {
-  if (typeof map === "undefined") return;
-
-  const savedCenter = localStorage.getItem("sfc_map_center");
-  const savedZoom = localStorage.getItem("sfc_map_zoom");
-
-  if (!savedCenter || !savedZoom) return;
-
-  try {
-    const center = JSON.parse(savedCenter);
-    const zoom = parseInt(savedZoom, 10);
-
-    if (
-      Array.isArray(center) &&
-      center.length === 2 &&
-      !isNaN(center[0]) &&
-      !isNaN(center[1]) &&
-      !isNaN(zoom)
-    ) {
-      map.setView(center, zoom);
-    }
-  } catch (e) {}
-}
-
-function saveMapSession() {
-  if (typeof map === "undefined") return;
-
-  const center = map.getCenter();
-  localStorage.setItem("sfc_map_center", JSON.stringify([center.lat, center.lng]));
-  localStorage.setItem("sfc_map_zoom", map.getZoom());
-}
-
-function restoreSidebarScroll() {
-  const scrollArea = document.querySelector(".sidebar-scroll-area");
-  const savedScroll = localStorage.getItem("sfc_sidebar_scroll");
-  if (!scrollArea || savedScroll === null) return;
-
-  scrollArea.scrollTop = parseInt(savedScroll, 10) || 0;
-}
-
-function saveSidebarScroll() {
-  const scrollArea = document.querySelector(".sidebar-scroll-area");
-  if (!scrollArea) return;
-
-  localStorage.setItem("sfc_sidebar_scroll", scrollArea.scrollTop);
-}
-
 function applySearchValue(value) {
   const searchBox = document.getElementById("searchBox");
   if (!searchBox) return;
@@ -115,35 +68,7 @@ function handleURLNavigation() {
   }
 }
 
-function restoreLastSelectedHub() {
-  if (typeof allHubs === "undefined" || !Array.isArray(allHubs) || allHubs.length === 0) return;
-
-  const savedHubName = localStorage.getItem("sfc_last_hub");
-  if (!savedHubName) return;
-
-  const targetHub = allHubs.find(function(hub) {
-    return hub.name === savedHubName;
-  });
-
-  if (!targetHub) return;
-
-  if (typeof setActiveSelection === "function") {
-    setActiveSelection("hub", targetHub.name);
-  } else if (typeof activeSelection !== "undefined") {
-    activeSelection.type = "hub";
-    activeSelection.value = targetHub.name;
-  }
-
-  if (typeof renderTrees === "function") {
-    renderTrees();
-  }
-
-  if (typeof scrollToHubTreeItem === "function") {
-    scrollToHubTreeItem(targetHub.name);
-  }
-}
-
-function restorePhase2StateWhenReady() {
+function restorePhaseStateWhenReady() {
   let tries = 0;
   const maxTries = 80;
 
@@ -173,13 +98,7 @@ function restorePhase2StateWhenReady() {
         }
       }
 
-      restoreMapSession();
-      restoreSidebarScroll();
       handleURLNavigation();
-
-      if (!window.location.search) {
-        restoreLastSelectedHub();
-      }
 
       if (typeof updateQuickAccessPreview === "function") {
         updateQuickAccessPreview();
@@ -221,7 +140,7 @@ initClearFilters();
 loadHubData();
 resetAllSections();
 
-restorePhase2StateWhenReady();
+restorePhaseStateWhenReady();
 
 const resetMapBtn = document.getElementById("resetMapBtn");
 if (resetMapBtn) {
@@ -265,16 +184,6 @@ document.addEventListener("click", function(e) {
     e.stopPropagation();
     hideHubDetailsPanel();
   }
-});
-
-const sidebarScrollArea = document.querySelector(".sidebar-scroll-area");
-if (sidebarScrollArea) {
-  sidebarScrollArea.addEventListener("scroll", saveSidebarScroll);
-}
-
-window.addEventListener("beforeunload", function() {
-  saveMapSession();
-  saveSidebarScroll();
 });
 
 window.addEventListener("resize", function() {
