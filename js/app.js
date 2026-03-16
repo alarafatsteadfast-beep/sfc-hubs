@@ -68,7 +68,7 @@ function handleURLNavigation() {
   }
 }
 
-function restorePhaseStateWhenReady() {
+function initFreshHomeWhenReady() {
   let tries = 0;
   const maxTries = 80;
 
@@ -81,24 +81,17 @@ function restorePhaseStateWhenReady() {
     if (hubsReady) {
       clearInterval(timer);
 
-      if (typeof restoreFilterState === "function") {
-        restoreFilterState();
-      }
-
       if (typeof renderTrees === "function") {
         renderTrees();
       }
 
-      if (typeof getFilteredHubs === "function" && typeof updateVisibleMarkers === "function") {
-        const filtered = getFilteredHubs();
-        updateVisibleMarkers(filtered);
+      updateVisibleMarkers(allHubs);
+      resetMapView();
+      resetAllSections();
 
-        if (typeof fitMapToFilteredHubs === "function" && filtered.length > 0) {
-          fitMapToFilteredHubs(filtered);
-        }
+      if (window.location.search) {
+        handleURLNavigation();
       }
-
-      handleURLNavigation();
 
       if (typeof updateQuickAccessPreview === "function") {
         updateQuickAccessPreview();
@@ -140,7 +133,7 @@ initClearFilters();
 loadHubData();
 resetAllSections();
 
-restorePhaseStateWhenReady();
+initFreshHomeWhenReady();
 
 const resetMapBtn = document.getElementById("resetMapBtn");
 if (resetMapBtn) {

@@ -62,10 +62,14 @@ function getFilteredHubs() {
 function getCrossFilteredValues() {
   const filtered = getFilteredHubs();
 
+  const divisions = [...new Set(allHubs.map(h => h.division).filter(Boolean))].sort();
+  const districts = [...new Set(allHubs.map(h => h.district).filter(Boolean))].sort();
+  const zones = [...new Set(allHubs.map(h => h.zone).filter(Boolean))].sort();
+
   return {
-    divisions: [...new Set(filtered.map(h => h.division).filter(Boolean))].sort(),
-    districts: [...new Set(filtered.map(h => h.district).filter(Boolean))].sort(),
-    zones: [...new Set(filtered.map(h => h.zone).filter(Boolean))].sort(),
+    divisions: divisions,
+    districts: districts,
+    zones: zones,
     hubs: filtered.slice().sort(function(a, b) {
       return (a.name || "").localeCompare(b.name || "");
     })
@@ -77,8 +81,12 @@ function applyFilters() {
 
   updateVisibleMarkers(filtered);
   renderTrees();
-  fitMapToFilteredHubs(filtered);
-  saveFilterState();
+
+  if (filtered.length > 0) {
+    fitMapToFilteredHubs(filtered);
+  } else {
+    hideHubDetailsPanel();
+  }
 }
 
 function toggleArrayFilter(filterKey, value) {
@@ -124,12 +132,11 @@ function clearAllFilters() {
   }
 
   hideSearchSuggestions();
+  hideHubDetailsPanel();
   updateVisibleMarkers(allHubs);
   renderTrees();
   fitMapToFilteredHubs(allHubs);
   resetAllSections();
-
-  localStorage.removeItem("sfc_filter_state");
 }
 
 function initClearFilters() {
@@ -139,35 +146,4 @@ function initClearFilters() {
   clearBtn.addEventListener("click", function() {
     clearAllFilters();
   });
-}
-
-function saveFilterState() {
-  const searchBox = document.getElementById("searchBox");
-
-  const state = {
-    division: activeFilters.division,
-    district: activeFilters.district,
-    zone: activeFilters.zone,
-    search: searchBox ? searchBox.value : ""
-  };
-
-  localStorage.setItem("sfc_filter_state", JSON.stringify(state));
-}
-
-function restoreFilterState() {
-  const saved = localStorage.getItem("sfc_filter_state");
-  if (!saved) return;
-
-  try {
-    const state = JSON.parse(saved);
-
-    activeFilters.division = Array.isArray(state.division) ? state.division : [];
-    activeFilters.district = Array.isArray(state.district) ? state.district : [];
-    activeFilters.zone = Array.isArray(state.zone) ? state.zone : [];
-
-    const searchBox = document.getElementById("searchBox");
-    if (searchBox && state.search) {
-      searchBox.value = state.search;
-    }
-  } catch (e) {}
 }

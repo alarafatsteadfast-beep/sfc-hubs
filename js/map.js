@@ -63,7 +63,6 @@ function focusHubOnMap(hub, zoomLevel) {
   }
 
   addRecentHub(hub);
-  localStorage.setItem("sfc_last_hub", hub.name);
 
   if (typeof renderTrees === "function") {
     renderTrees();
@@ -77,7 +76,6 @@ function focusHubOnMap(hub, zoomLevel) {
     showHubDetailsPanel(hub);
     pulseMarker(hub.marker);
     scrollToHubTreeItem(hub.name);
-    updateHubURL(hub);
   }, 350);
 }
 
@@ -133,15 +131,17 @@ function hideHubDetailsPanel() {
 
 function resetMapView() {
   hideHubDetailsPanel();
+
+  activeSelection.type = "";
+  activeSelection.value = "";
+
   map.flyTo(DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM, {
     duration: 0.8
   });
 
-  const url = new URL(window.location.href);
-  url.searchParams.delete("hub");
-  url.searchParams.delete("lat");
-  url.searchParams.delete("lng");
-  window.history.replaceState({}, "", url.toString());
+  if (typeof renderTrees === "function") {
+    renderTrees();
+  }
 }
 
 function getDistanceKm(lat1, lng1, lat2, lng2) {
@@ -326,12 +326,4 @@ function showMapToast(message) {
   toastTimer = setTimeout(function() {
     toast.classList.add("hidden");
   }, 2200);
-}
-
-function updateHubURL(hub) {
-  if (!hub || !hub.name) return;
-
-  const url = new URL(window.location.href);
-  url.searchParams.set("hub", hub.name);
-  window.history.replaceState({}, "", url.toString());
 }

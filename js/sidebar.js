@@ -22,7 +22,7 @@ function renderHubTree(hubs) {
   if (hubs.length === 0) {
     hubTree.innerHTML = `
       <div class="tree-item empty-tree">
-        No hubs found.<br>Try clearing filters or searching differently.
+        No hubs found.<br>Try hub, division, district or zone.
       </div>
     `;
     return;
