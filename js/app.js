@@ -212,6 +212,10 @@ if (typeof initSidebarRail === "function") {
   initSidebarRail();
 }
 
+if (typeof initFilterToolbar === "function") {
+  initFilterToolbar();
+}
+
 initSearch();
 initClearFilters();
 loadHubData();

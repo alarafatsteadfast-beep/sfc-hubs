@@ -355,11 +355,39 @@ function closeSection(targetId) {
   }
 }
 
-function resetAllSections() {
+function expandAllSections() {
+  openSection("divisionTree");
+  openSection("districtTree");
+  openSection("zoneTree");
+  openSection("hubTree");
+}
+
+function collapseAllSections() {
   closeSection("divisionTree");
   closeSection("districtTree");
   closeSection("zoneTree");
   closeSection("hubTree");
+}
+
+function resetAllSections() {
+  collapseAllSections();
+}
+
+function initFilterToolbar() {
+  const expandBtn = document.getElementById("expandAllBtn");
+  const collapseBtn = document.getElementById("collapseAllBtn");
+
+  if (expandBtn) {
+    expandBtn.addEventListener("click", function() {
+      expandAllSections();
+    });
+  }
+
+  if (collapseBtn) {
+    collapseBtn.addEventListener("click", function() {
+      collapseAllSections();
+    });
+  }
 }
 
 function scrollToHubTreeItem(name) {
