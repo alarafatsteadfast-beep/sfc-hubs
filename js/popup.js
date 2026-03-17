@@ -28,8 +28,8 @@ function buildPopup(hub, lat, lng, distanceFromUser) {
     `;
   }
 
-  const distanceLine = distanceFromUser
-    ? `<div class="distance-line"><b>Distance from You:</b> ${distanceFromUser}</div>`
+  const distanceBox = distanceFromUser
+    ? `<div class="box"><b>Distance from You:</b> ${distanceFromUser}</div>`
     : "";
 
   return `
@@ -59,10 +59,7 @@ function buildPopup(hub, lat, lng, distanceFromUser) {
         </div>
 
         <div class="box box-copy">
-          <div class="box-copy-text">
-            <div><b>Coordinates:</b> ${lat}, ${lng}</div>
-            ${distanceLine}
-          </div>
+          <div class="box-copy-text"><b>Coordinates:</b> ${lat}, ${lng}</div>
           <button
             class="inline-copy-btn"
             onclick="copyCoordinates(${lat}, ${lng}, this)"
@@ -71,6 +68,8 @@ function buildPopup(hub, lat, lng, distanceFromUser) {
             ${copyIcon("Coordinates")}
           </button>
         </div>
+
+        ${distanceBox}
 
         <hr>
 
