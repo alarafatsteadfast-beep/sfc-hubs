@@ -17,7 +17,12 @@ function buildPopup(hub, lat, lng, distanceFromUser) {
   const distanceValue = distanceFromUser || "Not available";
 
   function copyIcon(label) {
-    return `<img src="assets/images/copy.png" alt="Copy ${label}" class="inline-copy-icon">`;
+    return `
+      <span class="copy-btn-inner">
+        <img src="assets/images/copy.png" alt="Copy ${label}" class="inline-copy-icon">
+        <span class="copy-tooltip">Copy</span>
+      </span>
+    `;
   }
 
   function phoneBox(label, value) {
@@ -200,23 +205,18 @@ function showCopySuccess(triggerEl) {
 
   triggerEl.classList.add("copy-success");
 
-  const icon = triggerEl.querySelector(".inline-copy-icon");
-  const oldSrc = icon ? icon.getAttribute("src") : "";
-  const oldAlt = icon ? icon.getAttribute("alt") : "";
-
-  if (icon) {
-    icon.setAttribute("src", "assets/images/copy.png");
-    icon.setAttribute("alt", "Copied");
+  const tooltip = triggerEl.querySelector(".copy-tooltip");
+  if (tooltip) {
+    tooltip.textContent = "Copied";
   }
 
   clearTimeout(triggerEl._copyTimer);
   triggerEl._copyTimer = setTimeout(function() {
     triggerEl.classList.remove("copy-success");
-    if (icon) {
-      icon.setAttribute("src", oldSrc || "assets/images/copy.png");
-      icon.setAttribute("alt", oldAlt || "Copy");
+    if (tooltip) {
+      tooltip.textContent = "Copy";
     }
-  }, 800);
+  }, 1000);
 }
 
 function highlightPhoneBox(triggerEl) {
