@@ -6,7 +6,6 @@ function renderTrees() {
 
   renderClickableTree("divisionTree", data.divisions, setDivisionFilter, "division");
   renderClickableTree("districtTree", data.districts, setDistrictFilter, "district");
-  renderClickableTree("policeStationTree", data.policeStations, setPoliceStationFilter, "police_station");
   renderHubTree(data.hubs);
 
   updateSidebarCounts(data);
@@ -82,10 +81,6 @@ function renderClickableTree(containerId, items, clickHandler, type) {
     }
 
     if (type === "district" && activeFilters.district.includes(item)) {
-      link.classList.add("active-item");
-    }
-
-    if (type === "police_station" && activeFilters.police_station.includes(item)) {
       link.classList.add("active-item");
     }
 
@@ -226,12 +221,10 @@ function updateQuickAccessPreview() {
 function updateSidebarCounts(data) {
   setCount("divisionTreeCount", data.divisions.length);
   setCount("districtTreeCount", data.districts.length);
-  setCount("policeStationTreeCount", data.policeStations.length);
   setCount("hubTreeCount", data.hubs.length);
 
   setCount("divisionRailCount", data.divisions.length);
   setCount("districtRailCount", data.districts.length);
-  setCount("policeStationRailCount", data.policeStations.length);
   setCount("hubRailCount", data.hubs.length);
 }
 
@@ -370,14 +363,12 @@ function closeSection(targetId) {
 function expandAllSections() {
   openSection("divisionTree");
   openSection("districtTree");
-  openSection("policeStationTree");
   openSection("hubTree");
 }
 
 function collapseAllSections() {
   closeSection("divisionTree");
   closeSection("districtTree");
-  closeSection("policeStationTree");
   closeSection("hubTree");
 }
 

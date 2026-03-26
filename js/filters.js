@@ -1,7 +1,6 @@
 var activeFilters = {
   division: [],
-  district: [],
-  police_station: []
+  district: []
 };
 
 var activeSelection = {
@@ -44,10 +43,6 @@ function getFilteredHubs() {
       activeFilters.district.length === 0 ||
       activeFilters.district.includes(hub.district);
 
-    const matchPoliceStation =
-      activeFilters.police_station.length === 0 ||
-      activeFilters.police_station.includes(hub.police_station);
-
     const matchSearch =
       !searchValue ||
       hubName.includes(searchValue) ||
@@ -55,7 +50,7 @@ function getFilteredHubs() {
       hubDistrict.includes(searchValue) ||
       hubPoliceStation.includes(searchValue);
 
-    return matchDivision && matchDistrict && matchPoliceStation && matchSearch;
+    return matchDivision && matchDistrict && matchSearch;
   });
 }
 
@@ -64,12 +59,10 @@ function getCrossFilteredValues() {
 
   const divisions = [...new Set(allHubs.map(h => h.division).filter(Boolean))].sort();
   const districts = [...new Set(allHubs.map(h => h.district).filter(Boolean))].sort();
-  const policeStations = [...new Set(allHubs.map(h => h.police_station).filter(Boolean))].sort();
 
   return {
     divisions: divisions,
     districts: districts,
-    policeStations: policeStations,
     hubs: filtered.slice().sort(function(a, b) {
       return (a.name || "").localeCompare(b.name || "");
     })
@@ -112,16 +105,9 @@ function setDistrictFilter(value) {
   applyFilters();
 }
 
-function setPoliceStationFilter(value) {
-  toggleArrayFilter("police_station", value);
-  clearActiveSelection("hub");
-  applyFilters();
-}
-
 function clearAllFilters() {
   activeFilters.division = [];
   activeFilters.district = [];
-  activeFilters.police_station = [];
 
   activeSelection.type = "";
   activeSelection.value = "";
