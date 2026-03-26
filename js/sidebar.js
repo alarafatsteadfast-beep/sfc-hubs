@@ -6,7 +6,7 @@ function renderTrees() {
 
   renderClickableTree("divisionTree", data.divisions, setDivisionFilter, "division");
   renderClickableTree("districtTree", data.districts, setDistrictFilter, "district");
-  renderClickableTree("zoneTree", data.zones, setZoneFilter, "zone");
+  renderClickableTree("policeStationTree", data.policeStations, setPoliceStationFilter, "police_station");
   renderHubTree(data.hubs);
 
   updateSidebarCounts(data);
@@ -22,7 +22,7 @@ function renderHubTree(hubs) {
   if (hubs.length === 0) {
     hubTree.innerHTML = `
       <div class="tree-item empty-tree">
-        No hubs found.<br>Try hub, division, district or zone.
+        No hubs found.<br>Try hub, division, district or police station.
       </div>
     `;
     return;
@@ -85,7 +85,7 @@ function renderClickableTree(containerId, items, clickHandler, type) {
       link.classList.add("active-item");
     }
 
-    if (type === "zone" && activeFilters.zone.includes(item)) {
+    if (type === "police_station" && activeFilters.police_station.includes(item)) {
       link.classList.add("active-item");
     }
 
@@ -104,7 +104,7 @@ function addRecentHub(hub) {
   recentHubs.unshift({
     name: hub.name,
     district: hub.district,
-    zone: hub.zone
+    police_station: hub.police_station
   });
 
   if (recentHubs.length > 5) {
@@ -129,7 +129,7 @@ function toggleFavoriteHub(hub) {
     favoriteHubs.unshift({
       name: hub.name,
       district: hub.district,
-      zone: hub.zone
+      police_station: hub.police_station
     });
   }
 
@@ -226,12 +226,12 @@ function updateQuickAccessPreview() {
 function updateSidebarCounts(data) {
   setCount("divisionTreeCount", data.divisions.length);
   setCount("districtTreeCount", data.districts.length);
-  setCount("zoneTreeCount", data.zones.length);
+  setCount("policeStationTreeCount", data.policeStations.length);
   setCount("hubTreeCount", data.hubs.length);
 
   setCount("divisionRailCount", data.divisions.length);
   setCount("districtRailCount", data.districts.length);
-  setCount("zoneRailCount", data.zones.length);
+  setCount("policeStationRailCount", data.policeStations.length);
   setCount("hubRailCount", data.hubs.length);
 }
 
@@ -370,14 +370,14 @@ function closeSection(targetId) {
 function expandAllSections() {
   openSection("divisionTree");
   openSection("districtTree");
-  openSection("zoneTree");
+  openSection("policeStationTree");
   openSection("hubTree");
 }
 
 function collapseAllSections() {
   closeSection("divisionTree");
   closeSection("districtTree");
-  closeSection("zoneTree");
+  closeSection("policeStationTree");
   closeSection("hubTree");
 }
 

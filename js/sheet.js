@@ -25,6 +25,43 @@ function showLoadError() {
   }
 }
 
+function normalizeHeaderKey(key) {
+  return String(key || "")
+    .replace(/^\uFEFF/, "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "_");
+}
+
+function normalizeHubRow(row) {
+  const normalized = {};
+
+  Object.keys(row || {}).forEach(function(key) {
+    normalized[normalizeHeaderKey(key)] = row[key];
+  });
+
+  return {
+    name: normalized.name || "",
+    hub_id: normalized.hub_id || "",
+    police_station: normalized.police_station || "",
+    district: normalized.district || "",
+    division: normalized.division || "",
+    lat: normalized.lat || "",
+    lng: normalized.lng || "",
+    address: normalized.address || "",
+    hub_ip: normalized.hub_ip || "",
+    zonal: normalized.zonal || "",
+    phone: normalized.phone || "",
+    hub_phone: normalized.hub_phone || "",
+    manager: normalized.manager || "",
+    manager_phone: normalized.manager_phone || "",
+    assistant_manager: normalized.assistant_manager || "",
+    assistant_manager_phone: normalized.assistant_manager_phone || "",
+    team_leader: normalized.team_leader || "",
+    team_leader_phone: normalized.team_leader_phone || ""
+  };
+}
+
 function loadHubData() {
   Papa.parse(sheetURL, {
     download: true,
@@ -33,7 +70,9 @@ function loadHubData() {
     complete: function(results) {
       const hubs = results.data || [];
 
-      hubs.forEach(hub => {
+      hubs.forEach(function(rawHub) {
+        const hub = normalizeHubRow(rawHub);
+
         if (!hub.lat || !hub.lng) return;
 
         const lat = parseFloat(hub.lat);

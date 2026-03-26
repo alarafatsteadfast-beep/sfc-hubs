@@ -24,13 +24,13 @@ function initSearch() {
         const name = (hub.name || "").toLowerCase();
         const division = (hub.division || "").toLowerCase();
         const district = (hub.district || "").toLowerCase();
-        const zone = (hub.zone || "").toLowerCase();
+        const policeStation = (hub.police_station || "").toLowerCase();
 
         return (
           name.includes(value) ||
           division.includes(value) ||
           district.includes(value) ||
-          zone.includes(value)
+          policeStation.includes(value)
         );
       })
       .sort(function(a, b) {
@@ -75,7 +75,7 @@ function initSearch() {
   });
 }
 
-function renderSearchSuggestions(suggestions, query) {
+function renderSearchSuggestions(suggestions) {
   const suggestionsBox = document.getElementById("searchSuggestions");
   if (!suggestionsBox) return;
 
@@ -86,7 +86,7 @@ function renderSearchSuggestions(suggestions, query) {
     suggestionsBox.innerHTML = `
       <div class="search-suggestion-item">
         <div class="search-suggestion-title">No results found</div>
-        <div class="search-suggestion-meta">Try hub, division, district or zone</div>
+        <div class="search-suggestion-meta">Try hub, division, district or police station</div>
       </div>
     `;
     suggestionsBox.classList.remove("hidden");
@@ -98,7 +98,7 @@ function renderSearchSuggestions(suggestions, query) {
     item.className = "search-suggestion-item";
     item.innerHTML = `
       <div class="search-suggestion-title">${hub.name}</div>
-      <div class="search-suggestion-meta">${hub.district || "-"} • ${hub.division || "-"} • ${hub.zone || "-"}</div>
+      <div class="search-suggestion-meta">${hub.district || "-"} • ${hub.division || "-"} • ${hub.police_station || "-"}</div>
     `;
 
     item.addEventListener("click", function() {

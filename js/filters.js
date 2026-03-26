@@ -64,12 +64,12 @@ function getCrossFilteredValues() {
 
   const divisions = [...new Set(allHubs.map(h => h.division).filter(Boolean))].sort();
   const districts = [...new Set(allHubs.map(h => h.district).filter(Boolean))].sort();
-  const police_stations = [...new Set(allHubs.map(h => h.police_station).filter(Boolean))].sort();
+  const policeStations = [...new Set(allHubs.map(h => h.police_station).filter(Boolean))].sort();
 
   return {
     divisions: divisions,
     districts: districts,
-    police_stations: police_stations,
+    policeStations: policeStations,
     hubs: filtered.slice().sort(function(a, b) {
       return (a.name || "").localeCompare(b.name || "");
     })
