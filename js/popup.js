@@ -62,12 +62,12 @@ function buildPopup(hub, lat, lng, distanceFromUser) {
           <div class="box"><b>Division:</b> ${hub.division || ""}</div>
         </div>
 
+        <div class="box"><b>Police Station:</b> ${policeStation}</div>
+
         <div class="grid2">
           <div class="box"><b>Zonal Manager:</b> ${zonalManager}</div>
           ${phoneBox("Phone", zonalManagerPhone)}
         </div>
-
-        <div class="box"><b>Police Station:</b> ${policeStation}</div>
 
         <div class="box box-copy">
           <div class="box-copy-text"><b>Coordinates:</b> ${lat}, ${lng}</div>
